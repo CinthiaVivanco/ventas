@@ -1,0 +1,142 @@
+
+.crearcupon .panel-border-color-success  ,
+.crearcupon .panel-border-color-warning ,
+.crearcupon .panel-border-color-danger {
+    border-top: 0px solid #c9c9c9 !important;
+}
+.crearcupon .panel-border-color-success .panel-heading{
+    color: #34a853;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.crearcupon .panel-border-color-warning .panel-heading{
+    color: #fbbc05;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.crearcupon .panel-border-color-danger .panel-heading{
+    color: #ea4335;
+    font-weight: bold;
+    font-style: italic;
+} 
+
+.columna-success .mdi-check-circle{
+    position: absolute;
+    font-size: 14px;
+    color: #fff;
+    top: 4px;
+    right: 4px;
+}
+.requerido{
+    color : #ea4335;
+}
+.dinero{
+	height: 26px;
+    width: 90px !important;
+    display: block !important; 
+   	margin: 0 auto;
+}
+.sporcentaje{
+    display: none;
+}
+
+.tablaprecio{
+	font-size: 0.85em;
+}
+.columna-success , .columna-success-titulo{
+	color: #fff;
+  background-color: #5cb85c;
+  text-align: center;
+  position: relative;
+}
+.columna-success{
+  font-size: 1.4em !important;
+}
+
+.columna-default{
+  color: #000;
+  background-color: #f5f5f5;
+  text-align: center;
+  position: relative;
+}
+
+.columna-warning{
+	color: #fff;
+  background-color: #d58512;
+  font-size: 1.2em;
+}
+
+.ocultar{
+	display: none;
+}
+.alertaw{
+	width: 50%;
+	z-index: 1;
+	float: right;
+	margin-bottom: 0px ;
+}
+.panel-ajax-alert{
+    position: fixed;
+    top: 2px;
+    right: 4pc;
+    width: 50%;
+    z-index: 1205;
+}
+.input-group-btn .input-sm{
+	height: 37px !important;
+}
+
+tbody .mdi-check{
+	color: #34a853;
+}
+tbody .mdi-close{
+	color: #ea4335;
+}
+
+
+/********** tooltip **********/
+
+.tooltipfr {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltipfr .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 2px;
+  position: absolute;
+  z-index: 1026;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.tooltipfr .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltipfr:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+
