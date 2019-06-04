@@ -15,14 +15,17 @@
 			  <div class="col-sm-8">
 
 			    <div class="be-radio inline">
-			      <input type="radio"  
+			      <input type="radio" 
+			      class='documentorb' 
 			      name="documento" id="ordenventa"  value='OV'
 			      @if(isset($regla)) @if($regla->documento == 'OV') checked @endif @else checked @endif >
 			      <label for="ordenventa">Orden Venta</label>
 			    </div>
 
 			    <div class="be-radio inline">
-			      <input type="radio" name="documento" id="notacredito"  value='NC'
+			      <input type="radio" 
+			      class='documentorb'
+			      name="documento" id="notacredito"  value='NC'
 			      @if(isset($regla)) @if($regla->documento == 'NC') checked @endif @endif>
 			      <label for="notacredito">Nota Credito</label>
 			    </div>
@@ -37,7 +40,7 @@
 			<div class="form-group">
 				<label  class="col-sm-4 control-label" >
 					<div class="tooltipfr">Nombre <span class='requerido'>*</span>
-					  <span class="tooltiptext">Nombre del cupón</span>
+					  <span class="tooltiptext">Nombre de la regla</span>
 					</div>
 				</label>
 				<div class="col-sm-8">
@@ -77,7 +80,7 @@
 			<div class="form-group">
 			  	<label class="col-sm-4 control-label">
 			  		<div class="tooltipfr">Fecha Inicio <span class='requerido'>*</span>
-					  <span class="tooltiptext">Fecha donde se iniciara la aplicación del cupón.</span>
+					  <span class="tooltiptext">Fecha donde se iniciara la aplicación de la regla.</span>
 					</div>
 			  	</label>
 				<div class="col-sm-8">
@@ -101,7 +104,7 @@
 			<div class="form-group">
 			  	<label class="col-sm-4 control-label">
 			  		<div class="tooltipfr">Fecha Fin <span class='requerido'>*</span>
-					  <span class="tooltiptext">Fecha donde culminara la aplicación del cupón (si es vacio sera sin fecha fin).</span>
+					  <span class="tooltiptext">Fecha donde culminara la aplicación de la regla (si es vacio sera sin fecha fin).</span>
 					</div>
 				</label>
 			  	<div class="col-sm-8">
@@ -127,7 +130,7 @@
 			<div class="form-group">
 			  	<label class="col-sm-4 control-label">
 			  		<div class="tooltipfr">Cantidad Mínima <span class='requerido'>*</span>
-					  <span class="tooltiptext">Cantidad que deberia comprar para aplicación del cupón
+					  <span class="tooltiptext">Cantidad que deberia comprar para aplicación de la regla
 					  							(si es 0 aplica en cualquier cantidad comprada).</span>
 					</div>
 			  	</label>
@@ -161,9 +164,36 @@
     <div class="panel-heading">ACCIONES</div>
     <div class="panel-body">
 
+
 		<div class="col-sm-6">
 			<div class="form-group">
-			  <label class="col-sm-4 control-label">Aplicar un descuento</label>
+			  	<label class="col-sm-4 control-label">
+			  		<div class="tooltipfr">Acción
+					  <span class="tooltiptext">Se le aplicara al precio del producto un descuento o un aumento.</span>
+					</div>
+				</label>
+			  <div class="col-sm-8">
+
+			    <div class="be-radio inline">
+			      <input type="radio"  
+			      name="descuentoaumento" id="descuento" class='descuentoaumento' value='DS'
+			      @if(isset($regla)) @if($regla->descuentoaumento == 'DS') checked @endif @else checked @endif >
+			      <label for="descuento">Descuento</label>
+			    </div>
+
+			    <div class="be-radio inline">
+			      <input type="radio" 
+				  class='aumentorb' 
+			      name="descuentoaumento" id="aumento" class='descuentoaumento' value='AU'
+			      @if(isset($regla)) @if($regla->descuentoaumento == 'AU') checked @endif @endif>
+			      <label for="aumento">Aumento </label>
+			    </div>
+
+			  </div>
+			</div>
+
+			<div class="form-group">
+			  <label class="col-sm-4 control-label">Aplicar</label>
 			  <div class="col-sm-8">
 
 			    <div class="be-radio inline">
@@ -181,14 +211,12 @@
 
 			  </div>
 			</div>
-		</div>
 
-		<div class="col-sm-6">
 
 			<div class="form-group">
 			  <label class="col-sm-4 control-label">
 			  		<div class="tooltipfr">Importe/Porcentaje <span class='requerido'>*</span>
-					  <span class="tooltiptext">El descuento que se aplicara al cupón.</span>
+					  <span class="tooltiptext">El monto que se le aplicara al precio del producto.</span>
 					</div>
 			  </label>
 			  <div class="col-sm-8 abajocaja">
@@ -206,19 +234,12 @@
                 </div>
 
 
-
 			    @include('error.erroresvalidate', [ 'id' => $errors->has('descuento')  , 
 			                                          'error' => $errors->first('descuento', ':message') , 
 			                                          'data' => '6'])
 
 			  </div>
 			</div>
-
-		</div>
-
-
-
-		<div class="col-sm-6">
 
 			<div class="form-group">
 			  	<label class="col-sm-2 control-label">
@@ -246,10 +267,14 @@
 			      @if(isset($regla)) @if($regla->estado == 'CU') checked @endif @endif>
 			      <label for="culminado">Culminar </label>
 			    </div>
-
 			  </div>
 			</div>
+
+
 		</div>
+
+
+
 
 
     </div>

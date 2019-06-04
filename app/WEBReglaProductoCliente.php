@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WEBRegla extends Model
+class WEBReglaProductoCliente extends Model
 {
-    protected $table = 'WEB.reglas';
+    protected $table = 'WEB.reglaproductoclientes';
     public $timestamps=false;
 
     protected $primaryKey = 'id';
@@ -14,9 +14,9 @@ class WEBRegla extends Model
     public $keyType = 'string';
 
 
-    public function reglaproductocliente()
+    public function regla()
     {
-        return $this->hasMany('App\WEBReglaProductoCliente', 'regla_id', 'id');
+        return $this->belongsTo('App\WEBRegla', 'regla_id', 'id');
     }
 
 }

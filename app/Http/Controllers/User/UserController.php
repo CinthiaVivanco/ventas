@@ -18,7 +18,7 @@ class UserController extends Controller
     {
 
         $usuarios       = User::all('nombre','name')->toJson();
-        return response()->json(["data" => json_decode($usuarios)]);
+        return response()->json(["data" => json_decode($usuarios)],200);
 
 
         /*$usuarios       = User::all('nombre','name')->toJson();

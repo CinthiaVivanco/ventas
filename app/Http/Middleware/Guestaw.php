@@ -16,10 +16,17 @@ class Guestaw
      */
     public function handle($request, Closure $next)
     {
+
         if(!Session::has('usuario')){
             return $next($request);
         }else{
-            return Redirect()->to('/bienvenido');
+            if(!Session::has('empresas')){
+                return $next($request);
+            }else{
+                return Redirect()->to('/bienvenido');
+            }
+
         }
+
     }
 }

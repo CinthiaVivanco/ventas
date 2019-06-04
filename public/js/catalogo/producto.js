@@ -85,4 +85,16 @@ $(document).ready(function(){
     });
 
 
+    $(".crearcupon").on('click','.documentorb', function(e) {
+
+        var value = $(this).val();
+        if(value == 'OV'){
+            $(".aumentorb").prop('disabled', false);
+        }else{
+            $(".aumentorb").prop('disabled', true);
+        }
+    });
+
+
+
 });

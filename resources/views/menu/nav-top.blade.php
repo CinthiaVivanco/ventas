@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default navbar-fixed-top be-top-header">
   <div class="container-fluid">
     <div class="navbar-header"><a href="{{ url('/bienvenido') }}" class="navbar-brand"></a></div>
-    <div class="page-title"><span>Bienvenido al sistema de ventas</span></div>
+    <div class="page-title"><span>{{Session::get('empresas')->NOM_EMPR}} - {{Session::get('centros')->NOM_CENTRO}}</span></div>
     <div class="be-right-navbar">
       <ul class="nav navbar-nav navbar-right be-user-nav">
         <li class="dropdown">
@@ -14,7 +14,7 @@
                 <div class="user-position online">disponible</div>
               </div>
             </li>
-            <li><a href="#"><span class="icon mdi mdi-settings"></span> Configuraciones</a></li>
+            <li><a href="{{ url('/cambiarperfil/') }}"><span class="icon mdi mdi-settings"></span> Cambiar de perfil</a></li>
             <li><a href="{{ url('/cerrarsession') }}"><span class="icon mdi mdi-power"></span> Cerrar sesión</a></li>
           </ul>
         </li>

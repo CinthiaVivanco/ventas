@@ -21,7 +21,6 @@
                   <div class="tab-container">
                     <ul class="nav nav-tabs nav-tabs-success">
                       <li class="active"><a href="#producto" data-toggle="tab">Productos</a></li>
-                      <li><a href="#productoxdepartamento" data-toggle="tab">Producto x Departamento</a></li>
                     </ul>
                     <div class="tab-content">
                       <div id="producto" class="tab-pane active cont">

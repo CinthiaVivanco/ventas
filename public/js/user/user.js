@@ -142,6 +142,52 @@ $(document).ready(function(){
 	});
 
 
+	$(".listadoperfiles").on('click','label', function() {
+
+		var input 		= $(this).siblings('input');
+		var idempresa	= $(this).attr('data-idempresa');
+		var idcentro	= $(this).attr('data-idcentro');
+		var idusuario	= $(this).attr('data_idusuario');
+		var _token 		= $('#token').val()
+		var check 		= -1;
+		var estado 		= -1;
+		
+		if($(input).is(':checked')){ 
+			check 	= 0;
+			estado 	= false;
+		}else{
+			check = 1;
+			estado 	= true;
+		}
+
+        $.ajax({
+            type	: 	"POST",
+            url		: 	carpeta+"/ajax-activar-perfiles",
+            data    :   {
+                            _token  		: _token,
+                            idempresa 		: idempresa,
+                            idcentro 		: idcentro,
+                            idusuario 		: idusuario,
+                            check 			: check
+                        },
+            success: function (data) {
+
+				alertajax("Realizado con exito");
+            	console.log(data);
+
+            },
+            error: function (data) {
+                if(data.status = 500){
+                    /** error 505 **/
+                    var contenido = $(data.responseText);
+                    alerterror505ajax($(contenido).find('.trace-message').html()); 
+                    console.log($(contenido).find('.trace-message').html());     
+                }
+            }
+        });
+		
+	});
+
 
 
 

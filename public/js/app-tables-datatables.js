@@ -11,7 +11,11 @@ var App = (function () {
         "<'row be-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>"
     } );
 
-
+    $("#tableperfiles").dataTable({
+        "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
+        order : [[ 2, "desc" ]],
+        "bPaginate": false,
+    });
 
     $("#table1").dataTable({
         "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
@@ -21,6 +25,15 @@ var App = (function () {
     $("#tablecupones").dataTable({
         "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
         order : [[ 3, "asc" ]],
+    });
+    $("#tableprecios").dataTable({
+        "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
+        order : [[ 6, "asc" ]],
+    });
+
+
+    $("#tableclientes").dataTable({
+        "lengthMenu": [[1000, 2000, -1], [1000, 2000, "All"]],
     });
 
 

@@ -59,9 +59,13 @@ $(document).ready(function(){
 });
 
 
-
-
-
+function error500(data) {
+    if(data.status = 500){
+        var contenido = $(data.responseText);
+        alerterror505ajax($(contenido).find('.trace-message').html()); 
+        console.log($(contenido).find('.trace-message').html());     
+    }
+}
 
 function isJson(str) {
     try {
@@ -121,7 +125,7 @@ function alerterrorajax(alert){
 	cadena += "                <strong>Error!</strong> "+alert;
 	cadena += "          </div>";
 	$(".panel-ajax-alert").append(cadena);
-	setTimeout(function(){ $(".rd"+aleatorio).fadeOut(500).fadeIn(100).fadeOut(400).fadeIn(400).fadeOut(100);}, 1500);
+	setTimeout(function(){ $(".rd"+aleatorio).fadeOut(1000).fadeIn(200).fadeOut(600).fadeIn(500).fadeOut(100);}, 2500);
 
 }
 

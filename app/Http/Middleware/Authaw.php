@@ -17,15 +17,21 @@ class Authaw
     public function handle($request, Closure $next)
     {
 
-        if(Session::has('usuario')){
-            
-            return $next($request);
-
+        if(!Session::has('empresas')){
+            if(!Session::has('usuario')){
+                return Redirect()->to('/login');
+            }else{
+                return Redirect()->to('/acceso');
+            }
         }else{
-
-            return Redirect()->to('/login');
+            if(Session::has('usuario')){
+                return $next($request);
+            }else{
+                return Redirect()->to('/login');
+            }
 
         }
+
         
     }
 }

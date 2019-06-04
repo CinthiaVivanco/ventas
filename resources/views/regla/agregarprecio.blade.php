@@ -18,7 +18,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="panel panel-default panel-border-color panel-border-color-default">
-          <div class="panel-heading panel-heading-divider" >Descuento Producto<span class="panel-subtitle">Crear Descuento del Producto</span></div>
+          <div class="panel-heading panel-heading-divider" >Descuento o aumento para el precio del producto
+            <span class="panel-subtitle">Crear descuento o aumento para el precio del producto</span></div>
           <div class="panel-body">
 
                 <form method="POST"  action="{{ url('/agregar-regla-precio/'.$idopcion) }}" style="border-radius: 0px;" class="form-horizontal group-border-dashed">

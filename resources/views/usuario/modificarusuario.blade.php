@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/lib/datetimepicker/css/bootstrap-datetimepicker.min.css') }} "/>
     <link rel="stylesheet" type="text/css" href="{{ asset('public/lib/select2/css/select2.min.css') }} "/>
     <link rel="stylesheet" type="text/css" href="{{ asset('public/lib/bootstrap-slider/css/bootstrap-slider.css') }} "/>
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/lib/datatables/css/dataTables.bootstrap.min.css') }} "/>
 @stop
 @section('section')
 
@@ -16,6 +16,8 @@
         <div class="panel panel-default panel-border-color panel-border-color-primary">
           <div class="panel-heading panel-heading-divider">USUARIO<span class="panel-subtitle">Modificar Usuario : {{$usuario->nombre}}</span></div>
           <div class="panel-body">
+
+
             <form method="POST" action="{{ url('/modificar-usuario/'.$idopcion.'/'.Hashids::encode(substr($usuario->id, -8))) }}" style="border-radius: 0px;" class="form-horizontal group-border-dashed"> 
                   {{ csrf_field() }}
               
@@ -111,6 +113,77 @@
               </div>
 
             </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Basic forms-->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default panel-border-color panel-border-color-primary">
+          <div class="panel-heading panel-heading-divider">Perfiles<span class="panel-subtitle">Perfiles del usuario : {{$usuario->nombre}}</span></div>
+          <div class="panel-body">
+
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="panel panel-default panel-table">
+                  <div class="panel-body listadoperfiles">
+                    <table id="tableperfiles" class="table table-striped table-hover table-fw-widget">
+                      <thead>
+                        <tr>
+                          <th>Empresa</th>
+                          <th>Cargo</th>
+                          <th>Acceso</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        @foreach($empresas as $itemempresa)
+                          @foreach($centros as $itemcentro)
+                            <tr>
+                              <td>
+                                {{$itemempresa->NOM_EMPR}}
+                              </td>
+                              <td>
+                                {{$itemcentro->NOM_CENTRO}}
+                              </td>
+                              <td>
+                                <div class="text-center be-checkbox be-checkbox-sm">
+                                  <input  type="checkbox"
+                                          class="{{$itemempresa->COD_EMPR}}{{$itemcentro->COD_CENTRO}}"
+                                          id="1{{$itemempresa->COD_EMPR}}{{$itemcentro->COD_CENTRO}}"
+                                          @if ($funcion->funciones->tiene_perfil($itemempresa->COD_EMPR,$itemcentro->COD_CENTRO,$usuario->id)) checked @endif
+                                  >
+                                  <label  for="1{{$itemempresa->COD_EMPR}}{{$itemcentro->COD_CENTRO}}"
+                                          data-idempresa = "{{$itemempresa->COD_EMPR}}"
+                                          data-idcentro = "{{$itemcentro->COD_CENTRO}}"
+                                          data_idusuario = "{{$usuario->id}}"
+                                          class = "checkbox"                    
+                                          name="{{$itemempresa->COD_EMPR}}{{$itemcentro->COD_CENTRO}}"
+                                    ></label>
+                                </div>
+
+                              </td>
+                            </tr> 
+                          @endforeach                   
+                        @endforeach
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -137,12 +210,27 @@
     <script src="{{ asset('public/js/app-form-elements.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/lib/parsley/parsley.js') }}" type="text/javascript"></script>
 
+
+    <script src="{{ asset('public/lib/datatables/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/datatables/js/dataTables.bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/datatables/plugins/buttons/js/dataTables.buttons.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/datatables/plugins/buttons/js/buttons.html5.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/datatables/plugins/buttons/js/buttons.flash.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/datatables/plugins/buttons/js/buttons.print.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/datatables/plugins/buttons/js/buttons.colVis.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/datatables/plugins/buttons/js/buttons.bootstrap.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/js/app-tables-datatables.js') }}" type="text/javascript"></script>
+
+
     <script type="text/javascript">
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        App.dataTables();
         App.formElements();
         $('form').parsley();
       });
     </script> 
+    <script src="{{ asset('public/js/user/user.js?v='.$version) }}" type="text/javascript"></script> 
+    
 @stop

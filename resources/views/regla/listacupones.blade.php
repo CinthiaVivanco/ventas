@@ -39,26 +39,26 @@
                           <td>{{$item->cupon}}</td>
                           <td>
                             @if($item->cantidadminima == 0) 
-                              <span class="label label-default">ilimitado</span> 
+                              <span class="badge badge-default">ilimitado</span> 
                             @else 
                               <span class="badge badge-default">{{$item->cantidadminima}}</span>
                             @endif
                           </td>
                           <td>
                             @if($item->fechafin == $fechavacia) 
-                              <span class="label label-default">ilimitado</span> 
+                              <span class="badge badge-default">ilimitado</span> 
                             @else 
                               {{date_format(date_create($item->fechafin), 'd-m-Y H:i')}}
                             @endif
                           </td>
                           <td> 
                             @if($item->estado == 'PU') 
-                              <span class="label label-success">PUBLICADO</span>
+                              <span class="badge badge-success">PUBLICADO</span>
                             @else 
                               @if($item->estado == 'NP') 
-                                <span class="label label-warning">NO PUBLICADO</span>
+                                <span class="badge badge-warning">NO PUBLICADO</span>
                               @else
-                                <span class="label label-danger">CERRADO</span> 
+                                <span class="badge badge-danger">CERRADO</span> 
                               @endif
                             @endif
 

@@ -20,10 +20,13 @@
                   </div>
                 </div>
                 <div class="panel-body">
-                  <table id="tablecupones" class="table table-striped table-hover table-fw-widget">
+                  <table id="tableprecios" class="table table-striped table-hover table-fw-widget">
                     <thead>
                       <tr>
                         <th>Nombre</th>
+                        <th>Codigo</th>
+                        <th>Acción</th>
+                        <th>Monto</th>
                         <th>Cantidad</th>
                         <th>Utilizada</th>
                         <th>Fecha de expiración</th>
@@ -37,9 +40,20 @@
                       @foreach($listaprecio as $item)
                         <tr>
                           <td>{{$item->nombre}}</td>
+                          <td>{{$item->codigo}}</td>
+
+                          <td>
+                            @if($item->descuentoaumento == 'DS') 
+                              <span class="badge badge-danger">Descuento</span> 
+                            @else 
+                              <span class="badge badge-primary">Aumento</span>
+                            @endif
+                          </td>
+                          <td>{{$item->descuento}}</td>
+
                           <td>
                             @if($item->cantidadminima == 0) 
-                              <span class="label label-default">ilimitado</span> 
+                              <span class="badge badge-default">ilimitado</span> 
                             @else 
                               <span class="badge badge-default">{{$item->cantidadminima}}</span>
                             @endif
@@ -50,7 +64,7 @@
 
                           <td>
                             @if($item->fechafin == $fechavacia) 
-                              <span class="label label-default">ilimitado</span> 
+                              <span class="badge badge-default">ilimitado</span> 
                             @else 
                               {{date_format(date_create($item->fechafin), 'd-m-Y H:i')}}
                             @endif
@@ -59,21 +73,21 @@
 
                           <td> 
                             @if($item->documento == 'OV') 
-                              <span class="label label-success">ORDEN VENTA</span>
+                              <span class="badge badge-success">ORDEN VENTA</span>
                             @else 
-                              <span class="label label-default">NOTA CREDITO</span> 
+                              <span class="badge badge-default">NOTA CREDITO</span> 
                             @endif
                           </td>
 
 
                           <td> 
                             @if($item->estado == 'PU') 
-                              <span class="label label-success">PUBLICADO</span>
+                              <span class="badge badge-success">PUBLICADO</span>
                             @else 
                               @if($item->estado == 'NP') 
-                                <span class="label label-warning">NO PUBLICADO</span>
+                                <span class="badge badge-warning">NO PUBLICADO</span>
                               @else
-                                <span class="label label-danger">CERRADO</span> 
+                                <span class="badge badge-danger">CERRADO</span> 
                               @endif
                             @endif
                           </td>

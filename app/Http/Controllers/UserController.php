@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
 use App\User,App\WEBGrupoopcion,App\WEBRol,App\WEBRolOpcion,App\WEBOpcion,App\WEBListaPersonal;
+use App\ALMCentro,App\STDEmpresa,App\WEBUserEmpresaCentro;
 use View;
 use Session;
 use Hashids;
@@ -44,12 +45,29 @@ class UserController extends Controller
 
 				if($clavedesifrada == $clave)
 				{
-					$listamenu    		 = 	WEBGrupoopcion::where('activo', '=', 1)->orderBy('orden', 'asc')->get();
+
+					$listamenu    		 = 	WEBGrupoopcion::join('web.opciones', 'web.opciones.grupoopcion_id', '=', 'web.grupoopciones.id')
+											->join('web.rolopciones', 'web.rolopciones.opcion_id', '=', 'web.opciones.id')
+											->where('web.grupoopciones.activo', '=', 1)
+											->where('web.rolopciones.rol_id', '=', $tusuario->rol_id)
+											->where('web.rolopciones.ver', '=', 1)
+											->groupBy('web.grupoopciones.id')
+											->groupBy('web.grupoopciones.nombre')
+											->groupBy('web.grupoopciones.icono')
+											->select('web.grupoopciones.id','web.grupoopciones.nombre','web.grupoopciones.icono')
+											->get();
+
+					$listaopciones    	= 	WEBRolOpcion::where('rol_id', '=', $tusuario->rol_id)
+											->where('ver', '=', 1)
+											->pluck('opcion_id')
+											->toArray();
+
 
 					Session::put('usuario', $tusuario);
 					Session::put('listamenu', $listamenu);
+					Session::put('listaopciones', $listaopciones);
 
-					return Redirect::to('bienvenido');
+					return Redirect::to('acceso');
 					
 						
 				}else{
@@ -64,8 +82,39 @@ class UserController extends Controller
 		}
     }
 
+
+	public function actionAcceso()
+	{
+
+		$accesos  	= 	WEBUserEmpresaCentro::where('activo','=',1)
+						->where('usuario_id','=',Session::get('usuario')->id)->get();
+
+
+		return View::make('acceso',
+						 [
+						 	'accesos' => $accesos,
+						 ]);
+
+	}
+
+	public function actionAccesoBienvenido($idempresa,$idcentro)
+	{
+		
+		$centros 	= 	ALMCentro::where('COD_CENTRO','=',$idcentro)
+						->where('COD_ESTADO','=','1')->first(); 
+		$empresas 	= 	STDEmpresa::where('COD_EMPR','=',$idempresa)
+						->where('COD_ESTADO','=','1')->where('IND_SISTEMA','=','1')->first(); 
+
+		Session::put('empresas', $empresas);
+		Session::put('centros', $centros);
+		return Redirect::to('bienvenido');
+
+	}
+
 	public function actionBienvenido()
 	{
+		//dd(Session::get('listaopciones'));
+
 		return View::make('bienvenido');
 	}
 
@@ -74,7 +123,19 @@ class UserController extends Controller
 
 		Session::forget('usuario');
 		Session::forget('listamenu');
+		Session::forget('empresas');
+		Session::forget('centros');
+		Session::forget('listaopciones');
+
 		return Redirect::to('/login');
+	}
+
+	public function actionCambiarPerfil()
+	{
+
+		Session::forget('empresas');
+		Session::forget('centros');
+		return Redirect::to('/acceso');
 	}
 
 
@@ -100,7 +161,6 @@ class UserController extends Controller
 		/******************* validar url **********************/
 		$validarurl = $this->funciones->getUrl($idopcion,'Anadir');
 	    if($validarurl <> 'true'){return $validarurl;}
-
 	    /******************************************************/
 
 		if($_POST)
@@ -172,16 +232,21 @@ class UserController extends Controller
 		}else{
 
 
-				$usuario 	= User::where('id', $idusuario)->first();  
-				$rol 		= DB::table('WEB.Rols')->where('id','<>',$this->prefijomaestro.'00000001')->pluck('nombre','id')->toArray();
-				$comborol  	= array($usuario->rol_id => $usuario->rol->nombre) + $rol;
-			
+				$usuario 	= 	User::where('id', $idusuario)->first();  
+				$rol 		= 	DB::table('WEB.Rols')->where('id','<>',$this->prefijomaestro.'00000001')->pluck('nombre','id')->toArray();
+				$comborol  	= 	array($usuario->rol_id => $usuario->rol->nombre) + $rol;
+				$centros 	= 	ALMCentro::where('COD_ESTADO','=','1')->get(); 
+				$empresas 	= 	STDEmpresa::where('COD_ESTADO','=','1')->where('IND_SISTEMA','=','1')->get(); 
+				$funcion 	= 	$this;	
 
 		        return View::make('usuario/modificarusuario', 
 		        				[
 		        					'usuario'  		=> $usuario,
 									'comborol' 		=> $comborol,
-						  			'idopcion' 		=> $idopcion,					  			
+						  			'idopcion' 		=> $idopcion,
+									'centros' 		=> $centros,
+									'empresas' 		=> $empresas,
+									'funcion' 		=> $funcion,
 		        				]);
 		}
 	}
@@ -357,6 +422,43 @@ class UserController extends Controller
 
 	}
 	
+	public function actionAjaxActivarPerfiles(Request $request)
+	{
+
+		$idempresa =  $request['idempresa'];
+		$idcentro =  $request['idcentro'];
+		$idusuario =  $request['idusuario'];
+		$check =  $request['check'];	
+
+		$perfiles = WEBUserEmpresaCentro::where('empresa_id','=',$idempresa)
+										  ->where('centro_id','=',$idcentro)
+										  ->where('usuario_id','=',$idusuario)
+										  ->first();
+
+		if(count($perfiles)>0){
+
+			$cabecera            	 =	WEBUserEmpresaCentro::find($perfiles->id);
+			$cabecera->activo 	     =  $check;	
+			$cabecera->save();	
+			
+		}else{
+
+			$id 					= 	$this->funciones->getCreateIdMaestra('WEB.userempresacentros');
+		    $detalle            	=	new WEBUserEmpresaCentro;
+		    $detalle->id 	    	=  	$id;
+			$detalle->empresa_id 	= 	$idempresa;
+			$detalle->centro_id    	=  	$idcentro;
+			$detalle->usuario_id    =  	$idusuario;
+			$detalle->save();
+
+		}
+
+		echo("gmail");
+
+	}
+
+
+
 
 
 }

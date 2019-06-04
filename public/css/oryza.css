@@ -1,3 +1,149 @@
+.label-etiqueta-izquierda{
+  border-radius: 0px 2px 2px 0px;
+  margin-right: -2px;
+  margin-left: -4px;
+}
+.cell-detail-description-producto{
+  font-size: 0.85em;
+  color: #34a853;
+  font-weight: bold;
+}
+.cell-detail-description-contrato{
+  font-size: 0.85em;
+  color: #4285f4;
+  font-weight: bold;
+}
+.splash-acceso-container{
+  max-width: 600px; 
+  margin: 60px auto;
+}
+.splash-acceso-container .empresa-centro{
+  cursor: pointer;
+}
+.informacion-po{
+  color: #37b358;
+  font-size: 1.2em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.condicion-po{
+  color: #fbbc05;
+  font-size: 1.2em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.accion-po{
+  font-size: 1.2em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #ea4335;
+  font-weight: bold;
+}
+.po-regla-descripcion{
+  font-size: 1.08em;
+}
+.po-regla-descripcion strong{
+  color: #999;
+}
+.po-regla-descripcion small{
+  font-weight: bold;
+}
+.etiquetas-reglas .label-etiqueta{
+  cursor: pointer;
+}
+.etiquetas-reglas-modal{
+  margin-bottom: 5px;
+}
+.etiquetas-reglas-modal .label-etiqueta{
+  border-radius: 2px 0px 0px 2px;
+  cursor: pointer;
+}
+.etiquetas-reglas-modal .label-etiqueta-ver{
+  border-radius: 0px;
+  background: #bababa;
+  margin-left: -3px;
+}
+.etiquetas-reglas-modal .label-etiqueta-eliminar{
+  border-radius: 0px 2px 2px 0px;
+  background: #ea4335;
+  margin-right: -2px;
+  margin-left: -4px;
+  cursor: pointer;
+}
+
+
+
+.modal-content .modal-header{
+  padding: 0px !important;
+}
+
+/********* popover ********/
+
+.asignarregla .popover-edit{
+  cursor: pointer;
+  position: absolute;
+  bottom: 6px;
+  right: 2px;
+}
+
+
+/*.btn-default { background-color: #dbdbdb; box-shadow: 0px 3px #ccc; }*/
+.btn-primary { background-color: #005596; box-shadow: 0px 3px #005596;}
+
+/***************************/
+
+.relative{
+  position: relative;
+}
+
+.columna_1 {
+    background: #bababa;
+    color: #000;
+}
+.columna_2 {
+    background: #4285f4;
+    color: #fff;
+}
+.success{
+  background: #37b358;
+}
+.warning{
+  background-color: #f6c163 !important;
+}
+.danger{
+  background: #f6c163;
+}
+
+.center{
+    text-align: center !important;
+}
+.margen-top-filtro{
+  margin-top: 10px;
+}
+.asignarregla .tools{
+  position: absolute;
+  top: 0;
+  right: 6px; 
+}
+
+#btnbuscar span{
+  color: #5d82d1 !important;
+}
+
+.filtrotabla {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #2572f2;
+}
+
+.tablalaravel{
+  padding: 15px;
+}
+.registrocount{
+  padding-top: 31px;
+}
 
 .crearcupon .panel-border-color-success  ,
 .crearcupon .panel-border-color-warning ,
@@ -139,4 +285,26 @@ tbody .mdi-close{
   opacity: 1;
 }
 
+@media (max-width: 767px){
+  .main-content-mobile {
+    padding-top : 5px !important;
+    padding-left : 0px !important;
+    padding-right : 0px !important;
+  }
+
+  .main-content-mobile .col-mobil{
+    padding-left : 0px !important;
+    padding-right : 0px !important;
+  }
+
+  .main-content-mobile .panel-heading .tools .icon{
+    font-size: 30px;
+  }
+  .main-content-mobile .dataTables_length ,  .main-content-mobile .dataTables_filter{
+    text-align: left !important;
+    margin-bottom: 12px !important;
+  }
+
+
+}
 

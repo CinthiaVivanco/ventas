@@ -34,6 +34,7 @@ class ProductoController extends Controller
 
 	    $productos 			= 	DB::table('WEB.LISTAPRODUCTOSAVENDER')
 	    						->leftJoin('WEB.precioproductos', 'WEB.LISTAPRODUCTOSAVENDER.COD_PRODUCTO', '=', 'WEB.precioproductos.producto_id')
+	    						//->where('WEB.LISTAPRODUCTOSAVENDER.COD_EMPR','=',Session::get('empresas')->COD_EMPR)
 	    					 	->orderBy('NOM_PRODUCTO', 'asc')->get();
 
 
@@ -76,6 +77,8 @@ class ProductoController extends Controller
 			$cabecera->usuario_crea 	=   $precioproducto->usuario_crea;
 			$cabecera->precioproducto_id= 	$precioproducto->id;
 			$cabecera->producto_id 	 	= 	$precioproducto->producto_id;
+			$cabecera->empresa_id 		=   $precioproducto->empresa_id;
+			$cabecera->centro_id 		=   $precioproducto->centro_id;
 			$cabecera->save();
 
 		}else{
@@ -88,6 +91,8 @@ class ProductoController extends Controller
 			$cabecera->fecha_crea 	 	=   $this->fechaactual;
 			$cabecera->usuario_crea 	=   Session::get('usuario')->id;
 			$cabecera->producto_id 	 	= 	$producto_id;
+			$cabecera->empresa_id 		=   Session::get('empresas')->COD_EMPR;
+			$cabecera->centro_id 		=   Session::get('centros')->COD_CENTRO;
 			$cabecera->save();
 
 		}
@@ -105,7 +110,12 @@ class ProductoController extends Controller
 	    if($validarurl <> 'true'){return $validarurl;}
 	    /******************************************************/
 
-	    $listanegociacion = WEBRegla::orderBy('fechafin', 'asc')->where('tiporegla','=','NEG')->get();
+	    $listanegociacion = WEBRegla::orderBy('fechafin', 'asc')
+	    					->where('tiporegla','=','NEG')
+	    					//->where('empresa_id','=',Session::get('empresas')->COD_EMPR)
+	    					//->where('centro_id','=',Session::get('centros')->COD_CENTRO)
+	    					->get();
+
 		$fechavacia  = $this->fechavacia;
 
 		return View::make('regla/listanegociacion',
@@ -128,11 +138,12 @@ class ProductoController extends Controller
 		if($_POST)
 		{
 
-
+			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas');
 			$idregla 					= 	$this->funciones->getCreateIdMaestra('WEB.reglas');
 
 			$cabecera            	 	=	new WEBRegla;
 			$cabecera->id 	     	 	=  	$idregla;
+			$cabecera->codigo 	    	=  	$codigo;
 			$cabecera->tiporegla 	    =  	'NEG';
 			$cabecera->nombre 	     	=  	trim($request['nombre']);
 			$cabecera->fechainicio 	    =  	trim($request['fechainicio']);
@@ -143,6 +154,8 @@ class ProductoController extends Controller
 			$cabecera->estado 			=  	trim($request['estado']);
 			$cabecera->fecha_crea 	    =  	$this->fechaactual;
 			$cabecera->usuario_crea 	=  	Session::get('usuario')->id;
+			$cabecera->empresa_id 		=   Session::get('empresas')->COD_EMPR;
+			$cabecera->centro_id 		=   Session::get('centros')->COD_CENTRO;
 			$cabecera->save();
  
 
@@ -217,7 +230,11 @@ class ProductoController extends Controller
 	    if($validarurl <> 'true'){return $validarurl;}
 	    /******************************************************/
 
-	    $listaprecio = WEBRegla::orderBy('fechafin', 'asc')->where('tiporegla','=','PRE')->get();
+	    $listaprecio = 	WEBRegla::orderBy('fechafin', 'asc')
+	    				->whereIn('tiporegla', ['POV', 'PNC'])
+	    				//->where('empresa_id','=',Session::get('empresas')->COD_EMPR)
+	    				//->where('centro_id','=',Session::get('centros')->COD_CENTRO)
+	    				->get();
 		$fechavacia  = $this->fechavacia;
 
 		return View::make('regla/listaprecios',
@@ -241,11 +258,14 @@ class ProductoController extends Controller
 		{
 
 
+			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas');
 			$idregla 					= 	$this->funciones->getCreateIdMaestra('WEB.reglas');
 
+			$documento 					=   trim($request['documento']);
 			$cabecera            	 	=	new WEBRegla;
 			$cabecera->id 	     	 	=  	$idregla;
-			$cabecera->tiporegla 	    =  	'PRE';
+			$cabecera->codigo 	    	=  	$codigo;
+			$cabecera->tiporegla 	    =  	'P'.$documento;
 			$cabecera->nombre 	     	=  	trim($request['nombre']);
 			$cabecera->fechainicio 	    =  	trim($request['fechainicio']);
 			$cabecera->fechafin 	    =  	trim($request['fechafin']);
@@ -254,8 +274,11 @@ class ProductoController extends Controller
 			$cabecera->descuento 		=  	trim($request['descuento']);
 			$cabecera->estado 			=  	trim($request['estado']);
 			$cabecera->documento 		=  	trim($request['documento']);
+			$cabecera->descuentoaumento =  	$request['descuentoaumento'];
 			$cabecera->fecha_crea 	    =  	$this->fechaactual;
 			$cabecera->usuario_crea 	=  	Session::get('usuario')->id;
+			$cabecera->empresa_id 		=   Session::get('empresas')->COD_EMPR;
+			$cabecera->centro_id 		=   Session::get('centros')->COD_CENTRO;
 			$cabecera->save();
  
 
@@ -331,7 +354,13 @@ class ProductoController extends Controller
 	    if($validarurl <> 'true'){return $validarurl;}
 	    /******************************************************/
 
-	    $listacupones = WEBRegla::orderBy('fechafin', 'asc')->where('tiporegla','=','CUP')->get();
+	    $listacupones = WEBRegla::orderBy('fechafin', 'asc')
+	    				->where('tiporegla','=','CUP')
+	    				//->where('empresa_id','=',Session::get('empresas')->COD_EMPR)
+	    				//->where('centro_id','=',Session::get('centros')->COD_CENTRO)
+	    				->get();
+
+
 		$fechavacia  = $this->fechavacia;
 
 
@@ -360,11 +389,12 @@ class ProductoController extends Controller
 		if($_POST)
 		{
 
-
+			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas');
 			$idregla 					= 	$this->funciones->getCreateIdMaestra('WEB.reglas');
 
 			$cabecera            	 	=	new WEBRegla;
 			$cabecera->id 	     	 	=  	$idregla;
+			$cabecera->codigo 	    	=  	$codigo;
 			$cabecera->tiporegla 	    =  	'CUP';
 			$cabecera->nombre 	     	=  	trim($request['nombre']);
 			$cabecera->descripcion 	    =  	trim($request['descripcion']);
@@ -379,6 +409,8 @@ class ProductoController extends Controller
 			$cabecera->estado 			=  	trim($request['estado']);
 			$cabecera->fecha_crea 	    =  	$this->fechaactual;
 			$cabecera->usuario_crea 	=  	Session::get('usuario')->id;
+			$cabecera->empresa_id 		=   Session::get('empresas')->COD_EMPR;
+			$cabecera->centro_id 		=   Session::get('centros')->COD_CENTRO;
 			$cabecera->save();
  
 
