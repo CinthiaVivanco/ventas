@@ -43,16 +43,19 @@ class OrdenPedidoController extends Controller
 		}else{
 
 
-		    $listaclientes 		= 	WEBListaCliente::
-		    						//where('COD_EMPR','=',Session::get('empresas')->COD_EMPR)
-						    		//->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
-									orderBy('NOM_EMPR', 'asc')
+		    $listaclientes 		= 	WEBListaCliente::where('COD_EMPR','=',Session::get('empresas')->COD_EMPR)
+						    		->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
+									->orderBy('NOM_EMPR', 'asc')
 									->get();
 		
+		    $listaproductos 	= 	DB::table('WEB.LISTAPRODUCTOSAVENDER')
+		    					 	->orderBy('NOM_PRODUCTO', 'asc')->get();
+
 			return View::make('pedido/ordenpedido',
 						[				
 						  	'idopcion'  			=> $idopcion,
 						  	'listaclientes'  		=> $listaclientes,
+						  	'listaproductos'  		=> $listaproductos,
 						]);
 		}
 	}

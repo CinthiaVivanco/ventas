@@ -37,6 +37,27 @@ var App = (function () {
     });
 
 
+    $("#tableclientetp").dataTable({
+        "lengthMenu": [[5000, 10000, -1], [5000, 10000, "All"]],
+        "bPaginate": false,
+        "bInfo": false,
+        "oLanguage": {
+            "sSearch": ""
+        }
+    });
+
+
+    $("#tableproductotp").dataTable({
+        "lengthMenu": [[5000, 10000, -1], [5000, 10000, "All"]],
+        "bPaginate": false,
+        "bInfo": false,
+        "oLanguage": {
+            "sSearch": ""
+        }
+    });
+
+
+
     $("#tablereporte").dataTable({
         "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
         "ordering": false,

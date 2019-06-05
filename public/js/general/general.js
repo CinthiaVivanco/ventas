@@ -96,6 +96,38 @@ function validate_fechaMayorQue(fechaInicial,fechaFinal)
 
 
 
+function alertmobil(alert){
+
+    var aleatorio = Math.floor((Math.random() * 500) + 1);
+    var cadena = '';            
+    cadena += "          <div role='alert' class='rd"+aleatorio+" alertawrelative  alert alert-success alert-dismissible'>";
+    cadena += "                <button type='button' data-dismiss='alert' aria-label='Close' class='close'>";
+    cadena += "                    <span aria-hidden='true' class='mdi mdi-close'></span>";
+    cadena += "                </button>";
+    cadena += "                <span class='icon mdi mdi-check'></span>";
+    cadena += "                <strong>Bien Hecho!</strong> "+alert;
+    cadena += "          </div>";
+    $(".panel-ajax-alert-mobil").append(cadena);
+    setTimeout(function(){ $(".rd"+aleatorio).fadeOut(1000).fadeIn(200).fadeOut(400).fadeIn(400).fadeOut(100);}, 3000);
+
+}
+
+function alertdangermobil(alert){
+
+    var aleatorio = Math.floor((Math.random() * 500) + 1);
+    var cadena = '';            
+    cadena += "          <div role='alert' class='rd"+aleatorio+" alertawrelative  alert alert-danger alert-dismissible'>";
+    cadena += "                <button type='button' data-dismiss='alert' aria-label='Close' class='close'>";
+    cadena += "                    <span aria-hidden='true' class='mdi mdi-close'></span>";
+    cadena += "                </button>";
+    cadena += "                <span class='icon mdi mdi-check'></span>";
+    cadena += "                <strong>Error!</strong> "+alert;
+    cadena += "          </div>";
+    $(".panel-ajax-alert-mobil").append(cadena);
+    setTimeout(function(){ $(".rd"+aleatorio).fadeOut(1000).fadeIn(200).fadeOut(400).fadeIn(400).fadeOut(100);}, 3000);
+
+}
+
 
 function alertajax(alert){
 
