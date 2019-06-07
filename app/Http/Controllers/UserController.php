@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Crypt;
-use App\User,App\WEBGrupoopcion,App\WEBRol,App\WEBRolOpcion,App\WEBOpcion,App\WEBListaPersonal;
+use App\User,App\WEBGrupoopcion,App\WEBRol,App\WEBRolOpcion,App\WEBOpcion,App\WEBListaPersonal,App\WEBPedido,App\WEBDetallePedido;
 use App\ALMCentro,App\STDEmpresa,App\WEBUserEmpresaCentro;
 use View;
 use Session;
@@ -113,9 +113,18 @@ class UserController extends Controller
 
 	public function actionBienvenido()
 	{
-		//dd(Session::get('listaopciones'));
 
-		return View::make('bienvenido');
+
+		// cantidad de pedidos hechos
+	    $countpedidos		= 		WEBPedido::where('activo','=',1)
+	    							->where('usuario_crea','=',Session::get('usuario')->id)
+	    							->count();
+
+
+		return View::make('bienvenido',
+						 [
+						 	'countpedidos' => $countpedidos,
+						 ]);
 	}
 
 	public function actionCerrarSesion()

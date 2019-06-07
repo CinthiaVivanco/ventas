@@ -8,7 +8,42 @@ use Keygen;
 class Funcion{
 
 
-	  public function generar_codigo($basedatos) {
+	public function desencriptar_id($id,$count) {
+		
+		$idarray = explode('-', $id);
+	  	//decodificar variable
+	  	$decid 	= Hashids::decode($idarray[1]);
+	  	//ver si viene con letras la cadena codificada
+	  	if(count($decid)==0){ 
+	  		return Redirect::back()->withInput()->with('errorurl', 'Indices de la url con errores'); 
+	  	}
+	  	//concatenar con ceros
+	  	$idcompleta = str_pad($decid[0], $count, "0", STR_PAD_LEFT); 
+	  	//concatenar prefijo
+		$idcompleta = $idarray[0].$idcompleta;
+		return $idcompleta;
+	}
+
+
+	public function calcular_cabecera_total($productos) {
+
+		$total 						=   0.0000;
+		$productos 					= 	json_decode($productos, true);
+
+		foreach($productos as $obj){
+			$total = $total + (float)$obj['precio_producto']*(float)$obj['cantidad_producto'];
+		}
+		return $total;
+	}
+
+	public function calculo_igv($monto) {
+	  	return $monto - ($monto/1.18);
+	}
+	public function calculo_subtotal($monto) {
+	  	return $monto/1.18;
+	}
+
+	public function generar_codigo($basedatos,$cantidad) {
 
 	  		// maximo valor de la tabla referente
 			$tabla = DB::table($basedatos)
@@ -19,14 +54,11 @@ class Funcion{
             $idsuma = (int)$tabla[0]->codigo + 1;
 
 		  	//concatenar con ceros
-		  	$correlativocompleta = str_pad($idsuma, 6, "0", STR_PAD_LEFT); 
+		  	$correlativocompleta = str_pad($idsuma, $cantidad, "0", STR_PAD_LEFT); 
 
 	  		return $correlativocompleta;
 
-	  }
-
-
-
+	}
 
 	public function tiene_perfil($empresa_id,$centro_id,$usuario_id) {
 

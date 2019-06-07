@@ -22,6 +22,18 @@ var App = (function () {
         order : [[ 2, "desc" ]],
     });
 
+    $("#tablepedido").dataTable({
+        "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
+        order : [[ 1, "desc" ]],
+        "bPaginate": false,
+        "bInfo": false,
+        "oLanguage": {
+            "sSearch": ""
+        },
+        responsive: true,
+    });
+
+
     $("#tablecupones").dataTable({
         "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
         order : [[ 3, "asc" ]],

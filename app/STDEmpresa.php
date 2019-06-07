@@ -16,4 +16,10 @@ class STDEmpresa extends Model
     {
         return $this->hasMany('App\WEBUserEmpresaCentro', 'empresa_id', 'id');
     }
+
+	public function pedido()
+    {
+        return $this->hasMany('App\WEBPedido', 'cliente_id', 'id');
+    }
+
 }

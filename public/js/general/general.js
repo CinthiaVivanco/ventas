@@ -95,7 +95,6 @@ function validate_fechaMayorQue(fechaInicial,fechaFinal)
 }
 
 
-
 function alertmobil(alert){
 
     var aleatorio = Math.floor((Math.random() * 500) + 1);
@@ -108,7 +107,7 @@ function alertmobil(alert){
     cadena += "                <strong>Bien Hecho!</strong> "+alert;
     cadena += "          </div>";
     $(".panel-ajax-alert-mobil").append(cadena);
-    setTimeout(function(){ $(".rd"+aleatorio).fadeOut(1000).fadeIn(200).fadeOut(400).fadeIn(400).fadeOut(100);}, 3000);
+    setTimeout(function(){ $(".rd"+aleatorio).fadeOut(500).fadeIn(200).fadeOut(400).fadeIn(400).fadeOut(100);}, 2000);
 
 }
 

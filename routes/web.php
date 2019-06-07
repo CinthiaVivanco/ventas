@@ -69,10 +69,8 @@ Route::group(['middleware' => ['authaw']], function () {
 
 	Route::any('/ajax-generarcupon', 'ProductoController@actionAjaxGenerarCupon');
 
-
 	Route::any('/gestion-de-orden-de-pedido/{idopcion}', 'OrdenPedidoController@actionListarPedido');
 	Route::any('/agregar-orden-pedido/{idopcion}', 'OrdenPedidoController@actionAgregarOrdenPedido');
-	/*Route::any('/modificar-rol/{idopcion}/{idrol}', 'UserController@actionModificarRol');*/
 
 
 

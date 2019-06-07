@@ -138,7 +138,7 @@ class ProductoController extends Controller
 		if($_POST)
 		{
 
-			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas');
+			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas',6);
 			$idregla 					= 	$this->funciones->getCreateIdMaestra('WEB.reglas');
 
 			$cabecera            	 	=	new WEBRegla;
@@ -258,7 +258,7 @@ class ProductoController extends Controller
 		{
 
 
-			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas');
+			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas',6);
 			$idregla 					= 	$this->funciones->getCreateIdMaestra('WEB.reglas');
 
 			$documento 					=   trim($request['documento']);
@@ -389,7 +389,7 @@ class ProductoController extends Controller
 		if($_POST)
 		{
 
-			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas');
+			$codigo 					= 	$this->funciones->generar_codigo('WEB.reglas',6);
 			$idregla 					= 	$this->funciones->getCreateIdMaestra('WEB.reglas');
 
 			$cabecera            	 	=	new WEBRegla;

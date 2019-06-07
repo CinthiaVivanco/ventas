@@ -8,13 +8,39 @@
 
 @section('section')
 
+  <div class="be-content">
+    <div class="main-content container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-4">
+                <div class="widget widget-tile">
+                  <div id="spark1" class="chart sparkline"></div>
+                  <div class="data-info">
+                    <div class="desc">Pedidos</div>
+                    <div class="value">
+                        <span class="indicator indicator-equal mdi mdi-chevron-right"></span>
+                        <span data-toggle="counter" data-end="{{$countpedidos}}" class="number">0</span>
+                    </div>
+                  </div>
 
-    Bienvenido 
-  
+                  <div class="data-info">
+                    <div class="desc iropcion"> 
+                        <a href="{{ url('/gestion-de-orden-de-pedido/rE') }}">
+                            <span class="mdi mdi-arrow-right"></span>
+                        </a>
+                        
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
 
 @stop 
 
 @section('script')
+
     <script src="{{ asset('public/lib/jquery-flot/jquery.flot.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/lib/jquery-flot/jquery.flot.pie.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/lib/jquery-flot/jquery.flot.resize.js') }}" type="text/javascript"></script>
@@ -26,6 +52,8 @@
     <script src="{{ asset('public/lib/jqvmap/jquery.vmap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/lib/jqvmap/maps/jquery.vmap.world.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/js/app-dashboard.js') }}" type="text/javascript"></script>
+
+
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();

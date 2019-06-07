@@ -1,16 +1,128 @@
+.iropcion a{
+  font-size: 4em;
+  position: absolute;
+  top: 23px;
+  right: 37px;
+}
 
+/* BANNER */
 
-.crearpedido .productoseleccion .cell-detail{
+.crearpedido .row-menu{
+    overflow: hidden;
+    position: fixed;
+    bottom: 1px;
+    width: 77%;
+}
+.crearpedido  .col-atras{
+  background: #34a853;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
   font-size: 1.2em;
 }
+.crearpedido  .col-atras .mdi-arrow-left{
+  font-size: 1.5em;
+}
+.crearpedido  .col-total{
+  background: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #000;
+  text-align: right;
+  padding-right: 20px;
+  font-size: 1.45em;
+  font-style: italic;
+}
+.crearpedido  .col-total strong{
+    font-size: 0.75em;
+}
+.crearpedido  .col-mobil{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.col-fr-2 {
+    width: 16.66666667%;
+}
+.col-fr-10 {
+    width: 83.33333333%;
+}
+.col-fr-12 {
+    width: 100%;
+}
+.col-fr-2,.col-fr-10{
+  position: relative;
+  min-height: 1px;
+  float: left;
+}
+
+@media (max-width: 768px){
+  .crearpedido  .row-menu{
+      width: 100%;
+  }
+  .alertaw{
+      width: 100% !important;
+  }
+}
+
+/***********/
+#tablepedido_filter label {
+    width: 100%;
+}
+
+#tablepedido_filter input {
+    width: 100%;
+    margin-left: 0px !important;
+}
+
+#pedidotp{
+  position: relative;
+}
+.btn-guardar{
+  position: absolute;
+  top: -44px;
+  right: -5px;
+  padding: 0px 10px;
+  font-size: 0.85em;
+  border-radius: 0px;
+  padding-bottom: 7px;
+}
+.btn-guardar .mdi-check{
+  margin-bottom: 0px;
+}
+
+
+
+.crearpedido .productoseleccion{
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+.crearpedido .productoseleccion .panel-subtitle{
+  margin-bottom:0px !important;
+}
+.crearpedido .productoseleccion .cell-detail-producto{
+  font-size: 0.85em;
+  color: #000000;
+  font-weight: bold;
+}
+.crearpedido .productoseleccion .cell-detail-producto strong{
+  float: right;
+}
+.crearpedido .productoseleccion .cell-detail{
+  font-style: italic;
+  font-size: 1.1em;
+}
 .crearpedido .detallecliente .panel-full{
-  background-color:#eeeeee;
+  background-color: #c3daff;
   color: #000000;
 }
 .crearpedido .detallecliente .panel-heading{
   text-align: center;
   font-weight: bold;
   font-size: 1em;
+  font-style: italic;
 }
 .crearpedido .detallecliente .col-sm-12{
   padding-left: 0px !important;
@@ -346,7 +458,7 @@
 
 .panel-ajax-alert-mobil{
   position: fixed;
-  bottom: 1px;
+  bottom: 35px;
   z-index: 1205;
   padding: 0px !important;
   width: 100%;

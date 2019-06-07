@@ -35,6 +35,7 @@
         @include('success.ajax-alert')
         @include('success.bienhecho', ['bien' => Session::get('bienhecho')])
         @include('error.erroresurl', ['error' => Session::get('errorurl')])
+        @include('error.erroresbd', ['error' => Session::get('errorbd')])
 
         @include('menu.nav-top')
         @include('menu.nav-left')

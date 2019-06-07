@@ -74,7 +74,7 @@
       $(document).ready(function(){
       	var carpeta = $("#carpeta").val();
 
-	    $(".listaaccesos").on('dblclick','.empresa-centro', function(e) {
+	    $(".listaaccesos").on('click','.empresa-centro', function(e) {
 
 	        var empresa_id  		=   $(this).attr('data-empresa');
 	        var centro_id  			=   $(this).attr('data-centro');
