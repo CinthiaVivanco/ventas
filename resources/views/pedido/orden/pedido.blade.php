@@ -20,7 +20,7 @@
 
 <div class='row-menu'>
   <div class='row'>
-    <div class="col-sm-12 col-mobil">
+    <div class="col-sm-12 col-mobil-top">
       <div class="col-fr-2 col-atras">
         <span class="mdi mdi-arrow-left"></span>
       </div> 
@@ -37,6 +37,7 @@
   {{ csrf_field() }}
   <input type="hidden" name="cliente" id='cliente'>
   <input type="hidden" name="cuenta" id='cuenta'>
+  <input type="hidden" name="direccion_entrega" id='direccion_entrega'>
   <input type="hidden" name="productos" id='productos'>
 
   <button type="submit" class="btn btn-space btn-success btn-big btn-guardar">

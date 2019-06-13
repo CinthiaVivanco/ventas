@@ -17,4 +17,9 @@ class WEBPedido extends Model
     {
         return $this->belongsTo('App\STDEmpresa', 'cliente_id', 'COD_EMPR');
     }
+
+    public function detallepedido()
+    {
+        return $this->hasMany('App\WEBDetallePedido', 'pedido_id', 'id');
+    }
 }

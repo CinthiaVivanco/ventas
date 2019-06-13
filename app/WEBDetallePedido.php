@@ -12,4 +12,14 @@ class WEBDetallePedido extends Model
     public $incrementing = false;
     public $keyType = 'string';
 
+    public function producto()
+    {
+        return $this->belongsTo('App\ALMProducto', 'producto_id', 'COD_PRODUCTO');
+    }
+    public function pedido()
+    {
+        return $this->belongsTo('App\WEBPedido', 'pedido_id', 'id');
+    }
+
+
 }

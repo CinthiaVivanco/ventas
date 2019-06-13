@@ -69,9 +69,14 @@ Route::group(['middleware' => ['authaw']], function () {
 
 	Route::any('/ajax-generarcupon', 'ProductoController@actionAjaxGenerarCupon');
 
-	Route::any('/gestion-de-orden-de-pedido/{idopcion}', 'OrdenPedidoController@actionListarPedido');
+	Route::any('/gestion-de-toma-de-pedido/{idopcion}', 'OrdenPedidoController@actionListarPedido');
 	Route::any('/agregar-orden-pedido/{idopcion}', 'OrdenPedidoController@actionAgregarOrdenPedido');
+	Route::any('/ajax-direcion-cliente', 'OrdenPedidoController@actionAjaxDireccioncliente');
 
+	Route::any('/gestion-de-orden-de-pedido/{idopcion}', 'OrdenPedidoController@actionListarTomaPedido');
+	Route::any('/ajax-listado-de-toma-pedidos', 'OrdenPedidoController@actionAjaxListarTomaPedido');
+	Route::any('/enviar-a-osiris/{idopcion}', 'OrdenPedidoController@actionEnviarOsiris');
+	Route::any('/enviar-a-osiris-rechazar/{idopcion}', 'OrdenPedidoController@actionEnviarOsirisRechazar');
 
 
 

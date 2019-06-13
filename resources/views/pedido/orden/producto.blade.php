@@ -24,7 +24,7 @@
 </div>
 
 <div class="row precioproducto">
-  <div class="col-sm-12">
+  <div class="col-sm-12 col-mobil-top">
     <div class="panel panel-contrast">
       <div class="panel-heading panel-heading-contrast">
             <strong class='p_nombre_producto'>Nombre producto</strong>
@@ -80,6 +80,7 @@
     </div>
 </div>
 
+<!--
 <div class='row-menu'>
   <div class='row'>
     <div class="col-sm-12 col-mobil">
@@ -91,4 +92,4 @@
       </div> 
     </div>
   </div>
-</div>
+</div>-->

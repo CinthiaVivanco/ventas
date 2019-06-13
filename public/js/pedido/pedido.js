@@ -3,8 +3,95 @@ $(document).ready(function(){
 
     var carpeta = $("#carpeta").val();
 
-    //guardar pedido
 
+    /*************** TOMA PEDIDO **************/
+
+    $(".listatablapedido").on('click','label', function() {
+
+        var input   = $(this).siblings('input');
+        var accion  = $(this).attr('data-atr');
+        var name    = $(this).attr('name');
+        var check   = -1;
+        var estado  = -1;
+        
+        if($(input).is(':checked')){
+            check   = 0;
+            estado  = false;
+        }else{
+            check   = 1;
+            estado  = true;
+        }
+
+        validarrelleno(accion,name,estado,check);
+        
+    });
+    $('#buscarpedido').on('click', function(event){
+
+        event.preventDefault();
+        var finicio     = $('#finicio').val();
+        var ffin        = $('#ffin').val();
+        var _token      = $('#token').val();
+        $(".listatablapedido").html("");
+        abrircargando();
+
+        $.ajax({
+            type    :   "POST",
+            url     :   carpeta+"/ajax-listado-de-toma-pedidos",
+            data    :   {
+                            _token  : _token,
+                            finicio : finicio,
+                            ffin    : ffin
+                        },
+            success: function (data) {
+                cerrarcargando();
+                $(".listatablapedido").html(data);
+
+            },
+            error: function (data) {
+                cerrarcargando();
+                error500(data);
+            }
+        });
+
+    }); 
+
+    $('#enviarpedido').on('click', function(event){
+        event.preventDefault();
+
+        $('#fechainicio').val($('#finicio').val());
+        $('#fechafin').val($('#ffin').val());
+
+        data = dataenviar();
+        if(data.length<=0){alerterrorajax("Seleccione por lo menos un pedido");return false;}
+        var datastring = JSON.stringify(data);
+        $('#pedido').val(datastring);
+        abrircargando();
+
+        $( "#formpedido" ).submit();
+    });
+
+
+
+    $('#enviarpedidorechazar').on('click', function(event){
+        event.preventDefault();
+
+        $('#fechainiciorechazar').val($('#finicio').val());
+        $('#fechafinrechazar').val($('#ffin').val());
+
+        data = dataenviar();
+        if(data.length<=0){alerterrorajax("Seleccione por lo menos un pedido");return false;}
+        var datastring = JSON.stringify(data);
+        $('#pedidorechazar').val(datastring);
+        abrircargando();
+        $( "#formpedidorechazar" ).submit();
+    });
+
+
+
+
+    /**********************************************************/
+
+    //guardar pedido
 
     $(".crearpedido").on('click','.btn-guardar', function(e) {
 
@@ -29,14 +116,70 @@ $(document).ready(function(){
         var data_ncl        =   $(this).attr('data_ncl');
         var data_dcl        =   $(this).attr('data_dcl');
         var data_ccl        =   $(this).attr('data_ccl');
+        var _token          =   $('#token').val();
 
-        activaTab('productotp');
-        agregar_cliente(data_ncl,data_dcl,data_ccl);
-        agregar_cliente_hidden(data_pcl,data_icl,data_pcu,data_icu);  
-        alertmobil("Cliente "+data_ncl+" seleccionado");
+
+        $.ajax({
+              type    :   "POST",
+              url     :   carpeta+"/ajax-direcion-cliente",
+              data    :   {
+                            _token                : _token,
+                            data_icl              : data_icl,
+                            data_pcl              : data_pcl,
+                            data_icu              : data_icu,
+                            data_pcu              : data_pcu,
+                            data_ncl              : data_ncl,
+                            data_dcl              : data_dcl,
+                            data_ccl              : data_ccl,
+                          },
+            success: function (data) {
+                $('.ajaxdirecciones').html(data);
+            },
+            error: function (data) {
+                error500(data);
+            }
+        });
+
+        $('.listaclientes').toggle("slow");
+        $('.direccioncliente').toggle("slow");
 
     });
 
+
+    $(".crearpedido").on('click','.mdi-close-cliente', function(e) {
+
+        $('.listaclientes').toggle("slow");
+        $('.direccioncliente').toggle("slow");
+
+    });
+    $(".crearpedido").on('click','.mdi-check-cliente', function(e) {
+
+        var direccion_select            =   $('#direccion_select').val();
+        var nombre_direccion_select     =   $('#direccion_select :selected').text();
+        var data_icl                    =   $(this).attr('data_icl');
+        var data_pcl                    =   $(this).attr('data_pcl');
+        var data_icu                    =   $(this).attr('data_icu');
+        var data_pcu                    =   $(this).attr('data_pcu');
+        var data_ncl                    =   $(this).attr('data_ncl');
+        var data_dcl                    =   $(this).attr('data_dcl');
+        var data_ccl                    =   $(this).attr('data_ccl');
+
+        // validacion dirección
+        if(direccion_select ==''){ alertdangermobil("Seleccione una dirección"); return false;}
+
+        $('.listaclientes').toggle("slow");
+        $('.direccioncliente').toggle("slow");
+        activaTab('productotp');
+        agregar_cliente(data_ncl,data_dcl,data_ccl,nombre_direccion_select);
+        agregar_cliente_hidden(data_pcl,data_icl,data_pcu,data_icu,direccion_select);  
+        alertmobil("Cliente "+data_ncl+" seleccionado");
+        return true;
+    });
+
+
+
+
+    /**************** PRODCUTO *************/
 
     $(".crearpedido").on('click','.filaproducto', function(e) {
 
@@ -101,6 +244,53 @@ $(document).ready(function(){
 });
 
 
+function dataenviar(){
+        var data = [];
+        $(".listatabla tr").each(function(){
+            check   = $(this).find('input');
+            nombre  = $(this).find('input').attr('id');
+            if(nombre != 'todo'){
+                if($(check).is(':checked')){
+                    data.push({id: $(check).attr("id")});
+                }               
+            }
+        });
+        return data;
+}
+
+function validarrelleno(accion,name,estado,check,token){
+
+    if (accion=='todas') {
+
+        var table = $('#tfactura').DataTable();
+        $(".listatabla tr").each(function(){
+            nombre = $(this).find('input').attr('id');
+
+            if(nombre != 'todo' && !$(this).find('input').is(':disabled')){
+                $(this).find('input').prop("checked", estado);
+            }
+        });
+    }else{
+        sw = 0;
+        if(estado){
+            $(".listatabla tr").each(function(){
+
+                nombre = $(this).find('input').attr('id');
+                if(nombre != 'todo'){
+                    if(!($(this).find('input').is(':checked'))){
+                        sw = sw + 1;
+                    }
+                }
+
+            });
+            if(sw==1){
+                $("#todo").prop("checked", estado);
+            }
+        }else{
+            $("#todo").prop("checked", estado);
+        }           
+    }
+}
 
 
 function activaTab(tab){
@@ -132,21 +322,26 @@ function tituloprecioproducto(data_npr,data_upr,data_ipr,data_ppr){
 
 }
 
+
+
+
+
 function limpiar_input_producto(){
     $('#cantidad').val('');
     $('#precio').val('');
 }
 
 
-function agregar_cliente(nombrecliente,ruc,cuenta){
+function agregar_cliente(nombrecliente,ruc,cuenta,nombre_direccion_select){
 
     var cadena = '';            
-    cadena += " <div class='col-sm-12'>";
+    cadena += " <div class='col-sm-12 col-mobil-top'>";
     cadena += "     <div class='panel panel-full'>";
     cadena += "         <div class='panel-heading cell-detail'>";
     cadena +=               nombrecliente;
     cadena += "             <span class='panel-subtitle cell-detail-description-producto'>"+ruc+"</span>";
     cadena += "             <span class='panel-subtitle cell-detail-description-contrato'>"+cuenta+"</span>";
+    cadena += "             <span class='panel-subtitle cell-detail-direccion-entrega'><strong>Dirección de entrega:</strong> <small>"+nombre_direccion_select+"</small></span>";
     cadena += "         </div>";
     cadena += "     </div>";
     cadena += " </div>";
@@ -155,8 +350,9 @@ function agregar_cliente(nombrecliente,ruc,cuenta){
 
 
 }
-function agregar_cliente_hidden(data_pcl,data_icl,data_pcu,data_icu){
+function agregar_cliente_hidden(data_pcl,data_icl,data_pcu,data_icu,direccion_select){
     $('#cliente').val(data_pcl+'-'+data_icl);
+    $('#direccion_entrega').val(direccion_select);
     $('#cuenta').val(data_pcu+'-'+data_icu);
 }
 
@@ -212,7 +408,7 @@ function agregar_producto(nombreproducto,unidadmedida,cantidad,precio,data_ipr,d
 
     var importe = parseFloat(cantidad)*parseFloat(precio);
     var cadena = '';  
-    cadena += "<div class='col-sm-12 productoseleccion'";
+    cadena += "<div class='col-sm-12 productoseleccion col-mobil-top'";
     cadena += "data_ipr='"+data_ipr+"' data_ppr= '"+data_ppr+"' data_prpr='"+precio+"' data_ctpr='"+cantidad+"' >" 
     cadena += "     <div class='panel panel-default panel-contrast'>";
     cadena += "         <div class='panel-heading cell-detail'>";

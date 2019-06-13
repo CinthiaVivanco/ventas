@@ -1,3 +1,43 @@
+.tools .opciones{
+  padding-left: 8px;
+}
+
+.xml_content .panel{
+    margin-bottom: 0px;
+}
+.xml_content .main-content{
+    padding: 25px 25px 0px 25px;
+}
+.xml_content .alert{
+    margin-bottom: 8px !important;
+}
+
+/************ cargando ************/
+#WindowLoad
+{
+    position:fixed;
+    top:0px;
+    left:0px;
+    z-index:3200;
+    filter:alpha(opacity=65);
+   -moz-opacity:65;
+    opacity:0.65;
+    background:#fff;
+}
+.msjcargando{
+  color: #eee;
+}
+
+.msjcargando .texto{
+  font-size: 1.2em;
+  display: inline-block;
+  background: red;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-style: italic;
+}
+
 .iropcion a{
   font-size: 4em;
   position: absolute;
@@ -10,7 +50,7 @@
 .crearpedido .row-menu{
     overflow: hidden;
     position: fixed;
-    bottom: 1px;
+    bottom: 0px;
     width: 77%;
 }
 .crearpedido  .col-atras{
@@ -20,10 +60,12 @@
   cursor: pointer;
   color: #fff;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.3em;
 }
 .crearpedido  .col-atras .mdi-arrow-left{
   font-size: 1.5em;
+  padding-left: 18px;
+  padding-top: 2px;
 }
 .crearpedido  .col-total{
   background: #fff;
@@ -32,16 +74,28 @@
   color: #000;
   text-align: right;
   padding-right: 20px;
-  font-size: 1.45em;
+  font-size: 1.65em;
   font-style: italic;
 }
 .crearpedido  .col-total strong{
     font-size: 0.75em;
 }
 .crearpedido  .col-mobil{
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+  /*padding-left: 0px !important;
+  padding-right: 0px !important;*/
 }
+.crearpedido .tab-content{
+  padding: 0px !important;
+}
+
+@media (max-width: 480px){
+  .row {
+      margin-left: 0px;
+       margin-right: 0px; 
+  }
+
+}
+
 
 .col-fr-2 {
     width: 16.66666667%;
@@ -64,6 +118,23 @@
   }
   .alertaw{
       width: 100% !important;
+  }
+  .col-mobil-top{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  #tableclientetp_wrapper .col-sm-12{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  #tableproductotp_wrapper .col-sm-12{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .crearpedido .nav-tabs li{
+    font-style: italic;
+    font-weight: bold;
   }
 }
 
@@ -124,15 +195,17 @@
   font-size: 1em;
   font-style: italic;
 }
+/*
 .crearpedido .detallecliente .col-sm-12{
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 
 .crearpedido .detalleproducto .col-sm-12{
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
+*/
 .crearpedido .detalleproducto .panel{
   border-radius:0px !important;
   margin-bottom: 0px !important;
@@ -142,10 +215,12 @@
   margin-bottom: 0px !important;
 }
 
+/******************* PRECIO PRODUCTO *******************/
+
 .crearpedido .precioproducto .mdi-close-precio{
   position: absolute;
   top: 25px;
-  left: 14px;
+  left: 28px;
   font-size: 3em;
   color: #34a853;
   cursor: pointer;
@@ -160,7 +235,7 @@
 .crearpedido .precioproducto .mdi-check-circle{
   position: absolute;
   top: 25px;
-  right: 16px;
+  right: 30px;
   font-size: 3em;
   color: #4285f4;
   cursor: pointer;
@@ -169,6 +244,42 @@
 .crearpedido .precioproducto{
   display: none;
 }
+
+/******************* DIRECCION *******************/
+
+.crearpedido .direccioncliente{
+  display: none;
+}
+
+.crearpedido .direccioncliente .mdi-close-cliente{
+  position: absolute;
+  top: 25px;
+  left: 28px;
+  font-size: 3em;
+  color: #34a853;
+  cursor: pointer;
+}
+
+.crearpedido .direccioncliente .panel-contrast .panel-heading{
+  padding: 20px 50px 11px !important;
+  text-align: center;
+  font-size: 1em;
+}
+
+.crearpedido .direccioncliente .mdi-check-circle{
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  font-size: 3em;
+  color: #4285f4;
+  cursor: pointer;
+}
+
+.crearpedido .select2-container{
+  width: 100% !important;
+}
+
+
 
 #clientetp .be-datatable-header {
   border-bottom: 0px !important; 
@@ -183,14 +294,14 @@
   width: 100%;
   margin-left:0px !important;
 }
-#clientetp .col-sm-12{
+/*#clientetp .col-sm-12{
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 #clientetp .col-sm-6{
   padding-left: 0px !important;
   padding-right: 0px !important; 
-}
+}*/
 #tableclientetp tbody tr{
   cursor: pointer;
 }
@@ -209,7 +320,7 @@
   width: 100%;
   margin-left:0px !important;
 }
-
+/*
 #productotp .col-sm-12{
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -218,7 +329,7 @@
   padding-left: 0px !important;
   padding-right: 0px !important; 
 }
-
+*/
 #tableproductotp tbody tr{
   cursor: pointer;
 }
@@ -238,6 +349,14 @@
   color: #4285f4;
   font-weight: bold;
 }
+.cell-detail-direccion-entrega{
+  text-align: left;
+  color: #000;
+}
+.cell-detail-direccion-entrega small{
+  font-weight:initial;
+}
+
 .splash-acceso-container{
   max-width: 600px; 
   margin: 60px auto;
@@ -315,7 +434,7 @@
 
 
 /*.btn-default { background-color: #dbdbdb; box-shadow: 0px 3px #ccc; }*/
-.btn-primary { background-color: #005596; box-shadow: 0px 3px #005596;}
+/*.btn-primary { background-color: #005596; box-shadow: 0px 3px #005596;}*/
 
 /***************************/
 
@@ -404,20 +523,20 @@
     color : #ea4335;
 }
 .dinero{
-	height: 26px;
+height: 26px;
     width: 90px !important;
     display: block !important; 
-   	margin: 0 auto;
+    margin: 0 auto;
 }
 .sporcentaje{
     display: none;
 }
 
 .tablaprecio{
-	font-size: 0.85em;
+font-size: 0.85em;
 }
 .columna-success , .columna-success-titulo{
-	color: #fff;
+color: #fff;
   background-color: #5cb85c;
   text-align: center;
   position: relative;
@@ -434,19 +553,19 @@
 }
 
 .columna-warning{
-	color: #fff;
+color: #fff;
   background-color: #d58512;
   font-size: 1.2em;
 }
 
 .ocultar{
-	display: none;
+display: none;
 }
 .alertaw{
-	width: 50%;
-	z-index: 1;
-	float: right;
-	margin-bottom: 0px ;
+width: 50%;
+z-index: 1;
+float: right;
+margin-bottom: 0px ;
 }
 .panel-ajax-alert{
   position: fixed;
@@ -458,7 +577,7 @@
 
 .panel-ajax-alert-mobil{
   position: fixed;
-  bottom: 35px;
+  bottom: 38px;
   z-index: 1205;
   padding: 0px !important;
   width: 100%;
@@ -475,14 +594,14 @@
 
 
 .input-group-btn .input-sm{
-	height: 37px !important;
+height: 37px !important;
 }
 
 tbody .mdi-check{
-	color: #34a853;
+color: #34a853;
 }
 tbody .mdi-close{
-	color: #ea4335;
+color: #ea4335;
 }
 
 
@@ -537,8 +656,8 @@ tbody .mdi-close{
   }
 
   .main-content-mobile .col-mobil{
-    padding-left : 0px !important;
-    padding-right : 0px !important;
+    /*padding-left : 0px !important;
+    padding-right : 0px !important;*/
   }
 
   .main-content-mobile .panel-heading .tools .icon{

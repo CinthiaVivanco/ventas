@@ -24,5 +24,10 @@ class ALMProducto extends Model
         return $this->hasMany('App\WEBPrecioProductoHistorial', 'producto_id', 'id');
     }
 
+    public function detalleproducto()
+    {
+        return $this->hasMany('App\WEBDetallePedido', 'producto_id', 'id');
+    }
+
 
 }

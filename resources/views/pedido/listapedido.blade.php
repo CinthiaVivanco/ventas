@@ -35,7 +35,7 @@
                      @foreach($listapedidos as $item)
                         <tr>
                           <td>{{$item->codigo}}</td>
-                          <td>{{date_format(date_create($item->fecha_venta), 'd-m-Y H:i')}}</td>
+                          <td>{{date_format(date_create($item->fecha_time_venta), 'd-m-Y H:i')}}</td>
                           <td>{{$item->empresa->NOM_EMPR}}</td>
                           <td>{{$item->empresa->NRO_DOCUMENTO}}</td>
                           <td>{{$item->igv}}</td>

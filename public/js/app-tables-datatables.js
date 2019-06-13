@@ -34,6 +34,16 @@ var App = (function () {
     });
 
 
+    $("#tablatomapedido").dataTable({
+        "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
+        order : [[ 2, "desc" ]],
+        responsive: true,
+        columnDefs: [ 
+            { orderable: false, targets: -7 }
+        ]
+    });
+
+
     $("#tablecupones").dataTable({
         "lengthMenu": [[500, 1000, -1], [500, 1000, "All"]],
         order : [[ 3, "asc" ]],

@@ -15,7 +15,8 @@
 
     <!--Basic forms-->
     <div class="row">
-      <div class="col-md-12 col-mobil">
+      <div class="col-md-12 col-mobil-top">
+
 
         <div class="panel panel-default">
           <!--<div class="panel-heading">Orden de pedido</div>-->
@@ -67,6 +68,7 @@
     <script src="{{ asset('public/lib/moment.js/min/moment.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/lib/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>        
     <script src="{{ asset('public/lib/select2/js/select2.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/lib/select2/js/i18n/es.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/lib/bootstrap-slider/js/bootstrap-slider.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/js/app-form-elements.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/lib/parsley/parsley.js') }}" type="text/javascript"></script>
@@ -95,6 +97,8 @@
         'digitsOptional': false, 
         'prefix': '', 
         'placeholder': '0'});
+
+        $('#direccion_select').select2();
 
       });
     </script> 

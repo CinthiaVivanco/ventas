@@ -24,7 +24,7 @@
 
                   <div class="data-info">
                     <div class="desc iropcion"> 
-                        <a href="{{ url('/gestion-de-orden-de-pedido/rE') }}">
+                        <a href="{{ url('/gestion-de-toma-de-pedido/rE') }}">
                             <span class="mdi mdi-arrow-right"></span>
                         </a>
                         
