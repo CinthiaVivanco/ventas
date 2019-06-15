@@ -7,6 +7,18 @@ use Keygen;
 
 class Funcion{
 
+	public function tipo_cambio() {
+		
+		$tipocambio 		= 		DB::table('WEB.VIEWTIPOCAMBIO')
+        							->where('FEC_CAMBIO','<=',date('d/m/Y'))
+        							->orderBy('FEC_CAMBIO', 'desc')
+        							->first();
+
+        return $tipocambio; 							
+	}
+
+
+
 
 	public function desencriptar_id($id,$count) {
 		

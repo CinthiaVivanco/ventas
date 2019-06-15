@@ -249,14 +249,6 @@ class OrdenPedidoController extends Controller
 	    /******************************************************/
 
 
-		$tipocambio 		= 		DB::table('WEB.VIEWTIPOCAMBIO')
-        							->where('FEC_CAMBIO','=',date('Y-m-d').' 00:00:00.000')
-        							->orderBy('FEC_CAMBIO', 'desc')
-        							->first();
-
-
-       	dd($tipocambio);
-
 	    $listapedidos		= 		WEBPedido::where('activo','=',1)
 	    							->where('usuario_crea','=',Session::get('usuario')->id)
 	    							->orderBy('fecha_venta', 'desc')
@@ -292,8 +284,10 @@ class OrdenPedidoController extends Controller
 				$idpedido 					= 	$this->funciones->getCreateIdMaestra('WEB.pedidos');
 				$cuenta_id 					= 	$this->funciones->desencriptar_id($request['cuenta'],10);
 				$cliente_id 				= 	$this->funciones->desencriptar_id($request['cliente'],10);
+				$tipocambio 				= 	$this->funciones->tipo_cambio();
 				$direcion_entrega_id 		= 	$request['direccion_entrega'];
-
+				$moneda_id 					= 	'MON0000000000001';
+				$moneda_nombre 				= 	'SOLES';
 
 				//PEDIDO
 				$cabecera            	 	=	new WEBPedido;
@@ -305,6 +299,13 @@ class OrdenPedidoController extends Controller
 				$cabecera->estado 	    	=  	'EM';
 				$cabecera->cuenta_id 	    =  	$cuenta_id; 
 				$cabecera->cliente_id 	    =  	$cliente_id;
+
+				$cabecera->tipo_cambio 	    =  	$tipocambio->CAN_COMPRA; 
+				$cabecera->moneda_id 	    =  	$moneda_id;
+				$cabecera->moneda_nombre 	=  	$moneda_nombre; 
+
+
+
 				$cabecera->direccion_entrega_id 	    =  	$direcion_entrega_id;
 				$cabecera->empresa_id 		=   Session::get('empresas')->COD_EMPR;
 				$cabecera->centro_id 		=   Session::get('centros')->COD_CENTRO;

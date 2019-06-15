@@ -50,8 +50,8 @@ class Osiris{
 		$cod_categoria_tipo_orden 	                = 	'TOR0000000000006';
 		$txt_categoria_tipo_orden 	                = 	'VENTAS COMERCIAL';
 
-		$cod_categoria_moneda 		                = 	'MON0000000000001';
-		$txt_categoria_moneda		                =       'SOLES';
+		$cod_categoria_moneda 		                = 	$pedido->moneda_id;
+		$txt_categoria_moneda		                =       $pedido->moneda_nombre;
                 
 		$cod_categoria_estado_orden	                = 	'EOR0000000000001';
 		$txt_categoria_estado_orden	                = 	'GENERADA';
@@ -60,12 +60,13 @@ class Osiris{
 		$can_sub_total				        = 	(string)$pedido->total;
 		$can_total					= 	(string)$pedido->total;
 		$valor_cero					= 	'0';
-		$can_tipo_cambio 			        = 	'3.2940';
+		$can_tipo_cambio 			        = 	$pedido->tipo_cambio;
 		$cod_categoria_modulo 		                = 	'MSI0000000000010';
 		$txt_glosa_atencion 		                = 	$glosa;
 		$cod_estado 				        =       '1';
 		$cod_usuario_registro 		                =       Session::get('usuario')->name;
 		$cod_categoria_actividad_negocio 		=       'VENTA_MERCADERIA';
+
 
 
 		$stmt = DB::connection('sqlsrv')->getPdo()->prepare('SET NOCOUNT ON;EXEC CMP.ORDEN_IUD ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?');
