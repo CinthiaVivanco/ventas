@@ -37,7 +37,7 @@ class AsignarReglaController extends Controller
 		    									->whereIn('id',$arrayidclientes)
 		    									->orderBy('NOM_EMPR', 'asc')
 						    					->where('COD_EMPR','=',Session::get('empresas')->COD_EMPR)
-						    					->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
+						    					//->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
 		    									->paginate($paginacion);
 
 	    	// lista productos
@@ -54,7 +54,7 @@ class AsignarReglaController extends Controller
 
 		    $listacliente 					= 	WEBListaCliente::name($cliente)
 						    					->where('COD_EMPR','=',Session::get('empresas')->COD_EMPR)
-						    					->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
+						    					//->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
 												->orderBy('NOM_EMPR', 'asc')
 												->paginate($paginacion);
 	    	// lista productos
@@ -217,7 +217,6 @@ class AsignarReglaController extends Controller
 
 		$idreglaproductocliente 	= 	$this->funciones->getCreateIdMaestra('WEB.reglaproductoclientes');
 		$mensaje 					=  	'Regla asignada con exito';
-
 
 
 		$response 						= 	$this->funciones->precio_regla_calculo_menor_cero($producto_id,$cliente_id,$mensaje,$tipo,$regla_id);

@@ -7,6 +7,17 @@ use Keygen;
 
 class Funcion{
 
+
+	public function cuenta_cliente($id_cliente) {
+		
+		$cuenta 		= 		DB::table('WEB.LISTACLIENTE')
+        							->where('id','=',$id_cliente)
+        							->first();
+
+	 	return  $cuenta->CONTRATO;					 			
+	}
+
+
 	public function tipo_cambio() {
 		
 		$tipocambio 		= 		DB::table('WEB.VIEWTIPOCAMBIO')
@@ -138,6 +149,7 @@ class Funcion{
 
 		$mensaje					=   $mensaje;
 		$error						=   false;
+		$cantidad 					=  	0;
 
 		$listareglas = 	WEBReglaProductoCliente::join('WEB.reglas', 'WEB.reglaproductoclientes.regla_id', '=', 'WEB.reglas.id')
 						->where('producto_id','=',$producto_id)
@@ -146,7 +158,11 @@ class Funcion{
 						->where('WEB.reglaproductoclientes.activo','=','1')
 						->get();
 
-		if(count($listareglas) >0){
+		if($tiporegla=='PNC' or $tiporegla=='POV'){
+			$cantidad = 2; //osea si tiene 3 reglas
+		}
+
+		if(count($listareglas) > $cantidad ){
 			$mensaje = 'Tienes una regla activa por el momento';
 			$error   = true;
 		}								
@@ -277,7 +293,7 @@ class Funcion{
 
 		$listaclientes   		=	WEBListaCliente::select('NOM_EMPR')
 					    			->where('COD_EMPR','=',Session::get('empresas')->COD_EMPR)
-					    			->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
+					    			//->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
 									->pluck('NOM_EMPR','NOM_EMPR')
 									->take(10)
 									->toArray();

@@ -75,6 +75,7 @@ Route::group(['middleware' => ['authaw']], function () {
 
 	Route::any('/gestion-de-orden-de-pedido/{idopcion}', 'OrdenPedidoController@actionListarTomaPedido');
 	Route::any('/ajax-listado-de-toma-pedidos', 'OrdenPedidoController@actionAjaxListarTomaPedido');
+	Route::any('/ajax-modal-detalle-pedido', 'OrdenPedidoController@actionAjaxDetallePedido');
 	Route::any('/enviar-a-osiris/{idopcion}', 'OrdenPedidoController@actionEnviarOsiris');
 	Route::any('/enviar-a-osiris-rechazar/{idopcion}', 'OrdenPedidoController@actionEnviarOsirisRechazar');
 
@@ -88,7 +89,7 @@ Route::group(['middleware' => ['authaw']], function () {
         $term = $request->term ?: '';
         $tags = App\WEBListaCliente::where('NOM_EMPR', 'like', '%'.$term.'%')
 				->where('COD_EMPR','=',Session::get('empresas')->COD_EMPR)
-				->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
+				//->where('COD_CENTRO','=',Session::get('centros')->COD_CENTRO)
 				->take(100)
         		->pluck('NOM_EMPR', 'NOM_EMPR');
         $valid_tags = [];

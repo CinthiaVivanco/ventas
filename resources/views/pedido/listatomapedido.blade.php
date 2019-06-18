@@ -6,7 +6,7 @@
 @section('section')
 
 
-	<div class="be-content">
+	<div class="be-content listapedidoosiris">
 		<div class="main-content container-fluid main-content-mobile">
           <div class="row">
             <div class="col-sm-12 col-mobil">
@@ -96,6 +96,9 @@
             </div>
           </div>
 		</div>
+
+    @include('pedido.modal.detallepedido')
+
 	</div>
 
 @stop
@@ -114,8 +117,18 @@
   <script src="{{ asset('public/lib/datatables/js/dataTables.responsive.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('public/lib/datatables/js/responsive.bootstrap.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('public/js/app-tables-datatables.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('public/lib/jquery.niftymodals/dist/jquery.niftymodals.js') }}" type="text/javascript"></script>
+
 
   <script type="text/javascript">
+
+
+    $.fn.niftyModal('setDefaults',{
+      overlaySelector: '.modal-overlay',
+      closeSelector: '.modal-close',
+      classAddAfterOpen: 'modal-show',
+    });
+
     $(document).ready(function(){
       //initialize the javascript
       App.init();

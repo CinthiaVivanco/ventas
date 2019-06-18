@@ -22,6 +22,7 @@
       <th>Documento</th>
       <th>Estado</th>
       <th>Total</th>
+      <th>Ver</th>
     </tr>
   </thead>
   <tbody>
@@ -60,10 +61,15 @@
             @endif
         </td>
         <td>{{$item->total}}</td>
+        <td>
 
+          <span class="badge badge-primary btn-eyes btn-detalle-pedido" 
+                data-id="{{Hashids::encode(substr($item->id, -8))}}">
+            <span class="mdi mdi-eye  md-trigger"></span>
+          </span>
+        </td>
       </tr>                    
     @endforeach
-
 
   </tbody>
 </table>

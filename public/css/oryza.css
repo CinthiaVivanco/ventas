@@ -1,3 +1,8 @@
+
+.btn-eyes{
+  cursor: pointer;
+}
+
 .tools .opciones{
   padding-left: 8px;
 }
@@ -646,6 +651,16 @@ color: #ea4335;
 .tooltipfr:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+
+
+.modal-detalle-pedido .modal-header{
+  padding: 15px !important;
+}
+.modal-detalle-pedido .modal-header .modal-title{
+  font-size: 1.15em !important;
+  font-style: italic;
 }
 
 @media (max-width: 767px){

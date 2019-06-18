@@ -39,7 +39,7 @@ var App = (function () {
         order : [[ 2, "desc" ]],
         responsive: true,
         columnDefs: [ 
-            { orderable: false, targets: -7 }
+            { orderable: false, targets: -8 }
         ]
     });
 

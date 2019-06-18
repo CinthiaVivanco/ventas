@@ -4,6 +4,38 @@ $(document).ready(function(){
     var carpeta = $("#carpeta").val();
 
 
+    /*************** DETALLE DEL PEDIDO **************/
+
+
+    $(".listapedidoosiris").on('click','.btn-detalle-pedido', function() {
+
+
+        var _token          = $('#token').val();
+        var pedido_id       = $(this).attr('data-id');
+
+        $.ajax({
+            
+            type    :   "POST",
+            url     :   carpeta+"/ajax-modal-detalle-pedido",
+            data    :   {
+                            _token          : _token,
+                            pedido_id       : pedido_id
+                        },    
+            success: function (data) {
+                $('.modal-detalle-pedido').html(data);
+                $('#detalle-producto').niftyModal();
+            },
+            error: function (data) {
+                error500(data);
+            }
+        });
+
+        
+    });
+
+
+
+
     /*************** TOMA PEDIDO **************/
 
     $(".listatablapedido").on('click','label', function() {

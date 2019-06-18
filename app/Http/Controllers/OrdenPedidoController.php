@@ -17,6 +17,26 @@ class OrdenPedidoController extends Controller
 {
 
 
+	public function actionAjaxDetallePedido(Request $request)
+	{
+		$pedido_id 					= 	$request['pedido_id'];
+		$pedido_id 					= 	$this->funciones->desencriptar_id('1CIX-'.$pedido_id,8);
+		$pedido 					=   WEBPedido::where('id','=',$pedido_id)->first();
+		$funcion 					= 	$this;			
+
+
+
+		return View::make('pedido/ajax/modaldetallepedido',
+						 [
+							 'pedido_id'   	=> $pedido_id,
+							 'pedido'   	=> $pedido,
+							 'funcion'   	=> $funcion,
+						 ]);
+
+	}
+
+
+
 	public function actionEnviarOsirisRechazar($idopcion,Request $request)
 	{
 
