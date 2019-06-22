@@ -9,6 +9,7 @@
 <div  class="row regla-modal"             
       data_producto='{{$producto->COD_PRODUCTO}}'
       data_cliente='{{$cliente->id}}'
+      data_contrato='{{$cliente->COD_CONTRATO}}'
       data_prefijo='{{$prefijo}}'
       data_color='{{$color}}'>
     <div class="col-md-7">

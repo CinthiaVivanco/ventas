@@ -145,7 +145,7 @@ class Funcion{
 
 
 
-	public function tiene_regla_activa($producto_id,$cliente_id,$mensaje,$tiporegla) {
+	public function tiene_regla_activa($producto_id,$cliente_id,$contrato_id,$mensaje,$tiporegla) {
 
 		$mensaje					=   $mensaje;
 		$error						=   false;
@@ -155,6 +155,7 @@ class Funcion{
 						->where('producto_id','=',$producto_id)
 						->where('WEB.reglas.tiporegla','=',$tiporegla)
 						->where('cliente_id','=',$cliente_id)
+						->where('contrato_id','=',$contrato_id)
 						->where('WEB.reglaproductoclientes.activo','=','1')
 						->get();
 
@@ -177,13 +178,14 @@ class Funcion{
 	}
 
 
-	public function reglas_actualizar_modal($producto_id,$cliente_id,$tiporegla) {
+	public function reglas_actualizar_modal($producto_id,$cliente_id,$contrato_id,$tiporegla) {
 
 		$listareglas = 	WEBReglaProductoCliente::join('WEB.reglas', 'WEB.reglaproductoclientes.regla_id', '=', 'WEB.reglas.id')
 						->select('WEB.reglaproductoclientes.*')
 						->where('producto_id','=',$producto_id)
 						->where('WEB.reglas.tiporegla','=',$tiporegla)
 						->where('cliente_id','=',$cliente_id)
+						->where('contrato_id','=',$contrato_id)
 						->orderBy('WEB.reglaproductoclientes.activo', 'desc')
 						->orderBy('WEB.reglaproductoclientes.fecha_crea', 'desc')
 						->take(5)

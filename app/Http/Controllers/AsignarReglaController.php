@@ -77,7 +77,7 @@ class AsignarReglaController extends Controller
 
 	    //array de todos las reglas asignado a un producto segun el cliente
 		$listareglaproductoclientes 		= 	WEBReglaProductoCliente::join('WEB.reglas', 'WEB.reglas.id', '=', 'WEB.reglaproductoclientes.regla_id')
-												->select('WEB.reglaproductoclientes.id','producto_id','cliente_id','regla_id','nombre')
+												->select('WEB.reglaproductoclientes.id','producto_id','cliente_id','contrato_id','regla_id','nombre')
 												->where('WEB.reglaproductoclientes.activo','=',1)
 												->get();
 
@@ -103,11 +103,12 @@ class AsignarReglaController extends Controller
 
 	    $producto_id 			= 	$request['producto_id'];
 	    $cliente_id 			= 	$request['cliente_id'];
+	    $contrato_id 			= 	$request['contrato_id'];
 	    $tipo 					= 	$request['tipo'];
 	    $color 					= 	$request['color'];
 	    //array de todos las reglas asignado a un producto segun el cliente
 		$listareglaproductoclientes 		= 	WEBReglaProductoCliente::join('WEB.reglas', 'WEB.reglas.id', '=', 'WEB.reglaproductoclientes.regla_id')
-												->select('WEB.reglaproductoclientes.id','producto_id','cliente_id','regla_id','nombre')
+												->select('WEB.reglaproductoclientes.id','producto_id','cliente_id','contrato_id','regla_id','nombre')
 												->where('WEB.reglaproductoclientes.activo','=',1)
 												->get();
 
@@ -116,6 +117,7 @@ class AsignarReglaController extends Controller
 						 [
 						 	'cliente_id' 					=> $cliente_id,
 						 	'producto_id'	 				=> $producto_id,
+						 	'contrato_id'	 				=> $contrato_id,
 						 	'tipo'	 						=> $tipo,
 						 	'color'	 						=> $color,
 						 	'listareglaproductoclientes'	=> $listareglaproductoclientes,
@@ -128,10 +130,11 @@ class AsignarReglaController extends Controller
 
 	    $producto_id 			= 	$request['producto_id'];
 	    $cliente_id 			= 	$request['cliente_id'];
+	    $contrato_id 			= 	$request['contrato_id'];
 	    $tipo 					= 	$request['tipo'];
 	    $color 					= 	$request['color'];
 
-		$listareglas 			= 	$this->funciones->reglas_actualizar_modal($producto_id,$cliente_id,$tipo);
+		$listareglas 			= 	$this->funciones->reglas_actualizar_modal($producto_id,$cliente_id,$contrato_id,$tipo);
 
 		return View::make('regla/modal/ajax/etiquetas',
 						 [
@@ -150,21 +153,23 @@ class AsignarReglaController extends Controller
 
 	    $producto_id 			= 	$request['producto_id'];
 	    $cliente_id 			= 	$request['cliente_id'];
+	    $contrato_id 			= 	$request['contrato_id'];
 	    $nombre 				= 	$request['nombre'];
 	    $tipo 					= 	$request['tipo'];
 	    $nombreselect 			= 	$request['nombreselect'];
 	    $prefijo 				= 	$request['prefijo'];
 	    $color 					= 	$request['color'];
 
-		$cliente 				= 	WEBListaCliente::where('id','=',$cliente_id)->first();
+		$cliente 				= 	WEBListaCliente::where('id','=',$cliente_id)->where('COD_CONTRATO','=',$contrato_id)->first();
 		$producto 				= 	$this->funciones->producto_buscar($producto_id);
-		$listareglas 			= 	$this->funciones->reglas_actualizar_modal($producto_id,$cliente_id,$tipo);
+		$listareglas 			= 	$this->funciones->reglas_actualizar_modal($producto_id,$cliente_id,$contrato_id,$tipo);
     	$comboreglas 			= 	$this->funciones->combo_activas_regla_tipo($tipo,$nombreselect);
 
 
 		return View::make('regla/modal/ajax/detalle',
 						 [
 						 	'cliente' 				=> $cliente,
+						 	'contrato_id' 			=> $contrato_id,
 						 	'producto'	 			=> $producto,
 						 	'listareglas'	 		=> $listareglas,
 						 	'comboreglas'	 		=> $comboreglas,
@@ -212,6 +217,7 @@ class AsignarReglaController extends Controller
 
 	    $producto_id 				= 	$request['producto_id'];
 	    $cliente_id 				= 	$request['cliente_id'];
+	    $contrato_id 				= 	$request['contrato_id'];
 	    $regla_id 					= 	$request['regla_id'];
 	    $tipo 						= 	$request['tipo'];
 
@@ -223,7 +229,7 @@ class AsignarReglaController extends Controller
 		if($response[0]['error']){echo json_encode($response); exit();}
 
 
-		$response 						= 	$this->funciones->tiene_regla_activa($producto_id,$cliente_id,$mensaje,$tipo);
+		$response 						= 	$this->funciones->tiene_regla_activa($producto_id,$cliente_id,$contrato_id,$mensaje,$tipo);
 		if($response[0]['error']){echo json_encode($response); exit();}
 
 		$cabecera            	 	=	new WEBReglaProductoCliente;
@@ -231,6 +237,7 @@ class AsignarReglaController extends Controller
 		$cabecera->producto_id 	    =  	$producto_id;
 		$cabecera->regla_id 	    =  	$regla_id;
 		$cabecera->cliente_id 	    =  	$cliente_id;
+		$cabecera->contrato_id 	    =  	$contrato_id;
 		$cabecera->fecha_crea 	    =  	$this->fechaactual;
 		$cabecera->usuario_crea 	=  	Session::get('usuario')->id;
 		$cabecera->save();

@@ -21,6 +21,7 @@
       <tr   class='fila_regla'
             data_producto='{{$itemproducto->COD_PRODUCTO}}'
             data_cliente='{{$item->id}}'
+            data_contrato='{{$item->COD_CONTRATO}}'
       >
         <td class="cell-detail">
           <span>{{$item->NOM_EMPR}}</span>
@@ -40,6 +41,7 @@
                          [
                           'producto_id'                     => $itemproducto->COD_PRODUCTO,
                           'cliente_id'                      => $item->id,
+                          'contrato_id'                     => $item->COD_CONTRATO,
                           'listareglaproductoclientes'      => $listareglaproductoclientes,
                           'tipo'                            => 'NEG',
                           'color'                           => 'success'
@@ -69,6 +71,7 @@
                          [
                           'producto_id'                     => $itemproducto->COD_PRODUCTO,
                           'cliente_id'                      => $item->id,
+                          'contrato_id'                     => $item->COD_CONTRATO,
                           'listareglaproductoclientes'      => $listareglaproductoclientes,
                           'tipo'                            => 'POV',
                           'color'                           => 'primary'
@@ -99,6 +102,7 @@
                          [
                           'producto_id'                     => $itemproducto->COD_PRODUCTO,
                           'cliente_id'                      => $item->id,
+                          'contrato_id'                     => $item->COD_CONTRATO,
                           'listareglaproductoclientes'      => $listareglaproductoclientes,
                           'tipo'                            => 'PNC',
                           'color'                           => 'warning'
@@ -129,6 +133,7 @@
                          [
                           'producto_id'                     => $itemproducto->COD_PRODUCTO,
                           'cliente_id'                      => $item->id,
+                          'contrato_id'                     => $item->COD_CONTRATO,
                           'listareglaproductoclientes'      => $listareglaproductoclientes,
                           'tipo'                            => 'CUP',
                           'color'                           => 'danger'

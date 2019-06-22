@@ -10,6 +10,7 @@ $(document).ready(function(){
         var idreglaproductocliente  =   $(this).attr('data_id');
         var producto_id             =   $(this).parents('.regla-modal').attr('data_producto');
         var cliente_id              =   $(this).parents('.regla-modal').attr('data_cliente');
+        var contrato_id             =   $(this).parents('.regla-modal').attr('data_contrato');
         var regla_id                =   $(this).parents('.regla-modal').attr('data_regla');
 
         var prefijo                 =   $(this).parents('.regla-modal').attr('data_prefijo');
@@ -30,8 +31,8 @@ $(document).ready(function(){
                 mensaje      = JSONdata[0].mensaje;
                 if(error==false){
                     alertajax(mensaje);
-                    actualizar_et(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta);
-                    actualizar_etm(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta);
+                    actualizar_et(color,tipo,prefijo,producto_id,cliente_id,contrato_id,_token,carpeta);
+                    actualizar_etm(color,tipo,prefijo,producto_id,cliente_id,contrato_id,_token,carpeta);
                 }else{
                     alerterrorajax(mensaje); 
                 }
@@ -50,6 +51,7 @@ $(document).ready(function(){
         var _token              =   $('#token').val();
         var producto_id         =   $(this).parents('.regla-modal').attr('data_producto');
         var cliente_id          =   $(this).parents('.regla-modal').attr('data_cliente');
+        var contrato_id          =   $(this).parents('.regla-modal').attr('data_contrato');
         var regla_id            =   $(this).parents('.input-group-btn').siblings('#regla_id').val();
         var prefijo             =   $(this).parents('.regla-modal').attr('data_prefijo');
         var tipo                =   prefijo.toUpperCase();
@@ -65,6 +67,7 @@ $(document).ready(function(){
                             _token          : _token,
                             producto_id     : producto_id,
                             cliente_id      : cliente_id,
+                            contrato_id     : contrato_id,
                             regla_id        : regla_id,
                             tipo            : tipo,
                           },
@@ -75,8 +78,8 @@ $(document).ready(function(){
                 mensaje      = JSONdata[0].mensaje;
                 if(error==false){
                     alertajax(mensaje);
-                    actualizar_et(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta);
-                    actualizar_etm(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta);
+                    actualizar_et(color,tipo,prefijo,producto_id,cliente_id,contrato_id,_token,carpeta);
+                    actualizar_etm(color,tipo,prefijo,producto_id,cliente_id,contrato_id,_token,carpeta);
                 }else{
                     alerterrorajax(mensaje); 
                 }
@@ -161,6 +164,9 @@ $(document).ready(function(){
         var _token          = $('#token').val();
         var producto_id     = $(this).parents('.fila_regla').attr('data_producto');
         var cliente_id      = $(this).parents('.fila_regla').attr('data_cliente');
+        var contrato_id     = $(this).parents('.fila_regla').attr('data_contrato');
+
+
         var nombre          = $(this).attr('data_nombre');
         var nombreselect    = $(this).attr('data_nombreselect');
         var tipo            = $(this).attr('data_tipo');
@@ -179,6 +185,7 @@ $(document).ready(function(){
                             _token          : _token,
                             producto_id     : producto_id,
                             cliente_id      : cliente_id,
+                            contrato_id     : contrato_id,
                             nombre          : nombre,
                             nombreselect    : nombreselect,
                             tipo            : tipo,
@@ -238,7 +245,7 @@ function detalle_regla_popover(producto_id,cliente_id,regla_id,_token){
 }
 
 
-function actualizar_et(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta){
+function actualizar_et(color,tipo,prefijo,producto_id,cliente_id,contrato_id,_token,carpeta){
 
     var content = $('.et'+prefijo+producto_id+cliente_id);
 
@@ -249,6 +256,7 @@ function actualizar_et(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta)
                         _token          : _token,
                         producto_id     : producto_id,
                         cliente_id      : cliente_id,
+                        contrato_id     : contrato_id,
                         tipo            : tipo,
                         color           : color,
                       },
@@ -262,7 +270,7 @@ function actualizar_et(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta)
 
 }
 
-function actualizar_etm(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta){
+function actualizar_etm(color,tipo,prefijo,producto_id,cliente_id,contrato_id,_token,carpeta){
 
     var content = $('.etm'+prefijo+producto_id+cliente_id);
 
@@ -273,6 +281,7 @@ function actualizar_etm(color,tipo,prefijo,producto_id,cliente_id,_token,carpeta
                         _token          : _token,
                         producto_id     : producto_id,
                         cliente_id      : cliente_id,
+                        contrato_id     : contrato_id,
                         tipo            : tipo,
                         color           : color,
                       },
